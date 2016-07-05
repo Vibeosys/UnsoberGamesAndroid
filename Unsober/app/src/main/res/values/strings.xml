@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Unsober</string>
+    <string name="str_splash_app_name">unsober</string>
+    <string name="str_disclaimer">DISCLAIMER</string>
+    <string name="str_disclaimer_msg">
+        PLEASE DRINK WITH CAUTION AND VERIFY YOU ARE OVER 21 YEARS OLD.
+        BY ACCEPTING OUR DISCLAIMER YOU ACKNOWLEDGE YOU ARE 21 AND WILL
+        DRINK WITH CAUTION AND WITHIN THE LIMITATIONS OF YOUR REGION.
+    </string>
+    <string name="str_accept">I ACCEPT</string>
+</resources>

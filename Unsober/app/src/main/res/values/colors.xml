@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#F36420</color>
+    <color name="colorPrimaryDark">#d75b1f</color>
+    <color name="colorAccent">#40e9e9</color>
+    <color name="primaryText">#eb2f3031</color>
+    <color name="accentText">#FE5E08</color>
+    <color name="secondaryText">#d863666b</color>
+    <color name="gamesTabBack">#777777</color>
+    <color name="cocktailsTabBack">#969696</color>
+    <color name="curesTabBack">#bfbfbf</color>
+</resources>
