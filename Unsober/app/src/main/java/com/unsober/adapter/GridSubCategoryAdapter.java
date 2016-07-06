@@ -14,12 +14,12 @@ import java.util.ArrayList;
 /**
  * Created by akshay on 05-07-2016.
  */
-public class GameSubCategoryAdapter extends BaseAdapter {
+public class GridSubCategoryAdapter extends BaseAdapter {
 
     private ArrayList<Integer> data;
     private Context mContext;
 
-    public GameSubCategoryAdapter(ArrayList<Integer> data, Context mContext) {
+    public GridSubCategoryAdapter(ArrayList<Integer> data, Context mContext) {
         this.data = data;
         this.mContext = mContext;
     }

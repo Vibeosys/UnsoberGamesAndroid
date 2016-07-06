@@ -3,13 +3,15 @@ package com.unsober.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.unsober.R;
-import com.unsober.adapter.GameSubCategoryAdapter;
+import com.unsober.adapter.GridSubCategoryAdapter;
 
 import java.util.ArrayList;
 
@@ -34,8 +36,16 @@ public class GamesFragment extends Fragment {
         data.add(1);
         data.add(1);
         data.add(1);
-        GameSubCategoryAdapter adapter = new GameSubCategoryAdapter(data, getContext());
+        GridSubCategoryAdapter adapter = new GridSubCategoryAdapter(data, getContext());
         gridView.setAdapter(adapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.replace(R.id.pager, new CuresFragment(), "NewFragmentTag");
+                ft.commit();
+            }
+        });
         return view;
     }
 }
