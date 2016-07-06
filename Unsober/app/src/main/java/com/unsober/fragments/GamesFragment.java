@@ -2,7 +2,7 @@ package com.unsober.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,14 +36,13 @@ public class GamesFragment extends Fragment {
         data.add(1);
         data.add(1);
         data.add(1);
-        GridSubCategoryAdapter adapter = new GridSubCategoryAdapter(data, getContext());
+        GridSubCategoryAdapter adapter = new GridSubCategoryAdapter(data, getActivity().getApplicationContext());
         gridView.setAdapter(adapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.pager, new CuresFragment(), "NewFragmentTag");
-                ft.commit();
+                ItemsListFragment itemsListFragment = new ItemsListFragment();
+                getFragmentManager().beginTransaction().replace(R.id.fragment_frame_lay, itemsListFragment).commit();
             }
         });
         return view;

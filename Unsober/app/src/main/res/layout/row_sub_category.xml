@@ -27,6 +27,7 @@
             android:layout_margin="2dp"
             android:padding="2dp"
             android:text="Cooler"
+            android:textColor="@color/secondaryText"
             android:textSize="13sp" />
     </LinearLayout>
 </LinearLayout>

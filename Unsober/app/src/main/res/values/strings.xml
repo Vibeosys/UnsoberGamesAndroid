@@ -33,4 +33,7 @@
     <string name="search_item_tag_second">TAG #2</string>
     <string name="search_item_tag_third">TAG #3</string>
     <string name="search">Search</string>
+    <string name="str_game">Games</string>
+    <string name="str_cocktails">Cocktails</string>
+    <string name="str_cures">Cures</string>
 </resources>
