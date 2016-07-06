@@ -27,4 +27,10 @@
         ]]>
         </string>
     <string name="no_players_game_details">Minimum of 3 Players</string>
+    <string name="game_details">Search Game</string>
+    <string name="search_item">ENTER SEARCH ITEM</string>
+    <string name="search_item_tag_first">TAG #1</string>
+    <string name="search_item_tag_second">TAG #2</string>
+    <string name="search_item_tag_third">TAG #3</string>
+    <string name="search">Search</string>
 </resources>
