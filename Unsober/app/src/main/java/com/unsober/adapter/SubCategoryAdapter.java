@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.unsober.fragments.CocktailsFragment;
 import com.unsober.fragments.CuresFragment;
+import com.unsober.fragments.GameDetailsFragment;
 import com.unsober.fragments.GamesFragment;
 import com.unsober.fragments.SearchFragment;
 
@@ -34,8 +35,10 @@ public class SubCategoryAdapter extends FragmentPagerAdapter {
                 CuresFragment curesFragment = new CuresFragment();
                 return curesFragment;
             case 3:
-                SearchFragment searchFragment = new SearchFragment();
-                return searchFragment;
+               /* SearchFragment searchFragment = new SearchFragment();
+                return searchFragment;*/
+                GameDetailsFragment gameDetailsFragment = new GameDetailsFragment();
+                return gameDetailsFragment;
 
             default:
                 return null;

@@ -8,4 +8,23 @@
         DRINK WITH CAUTION AND WITHIN THE LIMITATIONS OF YOUR REGION.
     </string>
     <string name="str_accept">I ACCEPT</string>
+    <string name="game_description">
+        <![CDATA[ "Your team scores = sing Scorpions' 'Rock You Like A Hurricane' and drain your drink
+<br>\nYour team gets scored on = sing Nine Inch Nails' 'Head Like A Hole' and take a sip
+<br>\nYour team gets scored on again = sing Lenny Kravitz's 'It Ain't Over Till It's Over' and have a shot
+<br>\nYour team gets scored on AGAIN = sing Smokey Robinson's 'Tears of a Clown' and drain somebody else's drink
+<br>\nWTF? Your team takes a 4th one = no more alcohol for you until the end of the game. Start drinking water before things get ugly.
+<br>\n
+<br>
+<br>2-minute minor = 2 sips
+<br>\n4-minute minor = 4 sips
+<br>\n5-minute major = 5 sips plus a shot
+<br>\n10-minute misconduct = drain your drink plus 2 shots
+<br>\nGame misconduct = go outside and pour your drink over your head (pour water if you're lily-livered)
+<br>\nGloves & helmets come off and players square off = drain your drink and hide behind an item of furniture until it's over (yeah, seriously)
+<br>\nRef or linesman falls over = sing AC\/DC's 'Thunderstruck' and drain your drink
+<br>\nGoaltender scores
+        ]]>
+        </string>
+    <string name="no_players_game_details">Minimum of 3 Players</string>
 </resources>
