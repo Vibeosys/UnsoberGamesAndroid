@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="16dp">
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -62,7 +63,13 @@
                 android:background="@drawable/custom_black_border"
                 android:orientation="horizontal">
 
-                <android.support.design.widget.TextInputLayout
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                     />
+                <!--<android.support.design.widget.TextInputLayout
                     android:id="@+id/input_secondEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -84,9 +91,14 @@
                         android:textColorHint="@android:color/black"
                         android:textSize="16sp" />
 
-                </android.support.design.widget.TextInputLayout>
+                </android.support.design.widget.TextInputLayout>-->
 
-
+                <Spinner
+                    android:id="@+id/spinner1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    />
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/thirdLayout"
@@ -98,8 +110,13 @@
                 android:layout_marginEnd="18dp"
                 android:background="@drawable/custom_black_border"
                 android:orientation="horizontal">
-
-                <android.support.design.widget.TextInputLayout
+                <Spinner
+                    android:id="@+id/spinner2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    />
+                <!--<android.support.design.widget.TextInputLayout
                     android:id="@+id/input_thirdEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -121,7 +138,7 @@
                         android:textColorHint="@android:color/black"
                         android:textSize="16sp" />
 
-                </android.support.design.widget.TextInputLayout>
+                </android.support.design.widget.TextInputLayout>-->
 
 
             </LinearLayout>
@@ -136,7 +153,7 @@
                 android:background="@drawable/custom_black_border"
                 android:orientation="horizontal">
 
-                <android.support.design.widget.TextInputLayout
+                <!--<android.support.design.widget.TextInputLayout
                     android:id="@+id/input_fourthEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -158,8 +175,13 @@
                         android:textColorHint="@android:color/black"
                         android:textSize="16sp" />
 
-                </android.support.design.widget.TextInputLayout>
-
+                </android.support.design.widget.TextInputLayout>-->
+                <Spinner
+                    android:id="@+id/spinner3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    />
 
             </LinearLayout>
             <Button
