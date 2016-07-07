@@ -7,18 +7,27 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.unsober.R;
+import com.unsober.services.CategorySyncService;
 
-public class DisclaimerActivity extends AppCompatActivity implements View.OnClickListener {
+public class DisclaimerActivity extends BaseActivity implements View.OnClickListener {
 
     TextView txtAccept;
+    Intent syncCategoryIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        syncCategoryIntent = new Intent(Intent.ACTION_SYNC, null, this, CategorySyncService.class);
         setContentView(R.layout.activity_disclaimer);
         getSupportActionBar().hide();
         txtAccept = (TextView) findViewById(R.id.txtAccept);
         txtAccept.setOnClickListener(this);
+        startService(syncCategoryIntent);
+    }
+
+    @Override
+    protected View getMainView() throws NullPointerException {
+        return null;
     }
 
     @Override

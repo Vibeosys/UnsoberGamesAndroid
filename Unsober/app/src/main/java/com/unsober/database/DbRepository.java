@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.unsober.data.adapterdata.CategoryDataDTO;
 import com.unsober.data.responsedata.ResponseCategoryDTO;
 import com.unsober.data.responsedata.ResponseItemDTO;
 import com.unsober.utils.DateUtils;
@@ -175,5 +176,47 @@ public class DbRepository extends SQLiteOpenHelper {
                 Log.e(TAG, "##Insert Item" + errorMessage);
         }
         return flagError;
+    }
+
+    public ArrayList<CategoryDataDTO> getCategoryList(int parentId) {
+        SQLiteDatabase sqLiteDatabase = null;
+        Cursor cursor = null;
+        ArrayList<CategoryDataDTO> categoryDTOs = null;
+        try {
+            String[] whereClause = new String[]{String.valueOf(parentId)};
+            sqLiteDatabase = getReadableDatabase();
+            synchronized (sqLiteDatabase) {
+                cursor = sqLiteDatabase.rawQuery("SELECT * From " + SqlContract.SqlCategories.TABLE_NAME + " where " +
+                        SqlContract.SqlCategories.STATUS + "=1 AND " + SqlContract.SqlCategories.PARENT_ID + "=?", whereClause);
+                categoryDTOs = new ArrayList<>();
+                if (cursor != null) {
+                    if (cursor.getCount() > 0) {
+                        cursor.moveToFirst();
+
+                        do {
+                            long mCategoryId = cursor.getLong(cursor.getColumnIndex(SqlContract.SqlCategories.ID));
+                            String mCategoryName = cursor.getString(cursor.getColumnIndex(SqlContract.SqlCategories.NAME));
+                            String mCategoryIcon = cursor.getString(cursor.getColumnIndex(SqlContract.SqlCategories.ICON));
+                            long mCategoryParentId = cursor.getLong(cursor.getColumnIndex(SqlContract.SqlCategories.PARENT_ID));
+                            int mCategoryStatus = cursor.getInt(cursor.getColumnIndex(SqlContract.SqlCategories.STATUS));
+
+                            CategoryDataDTO categoryDataDTO = new CategoryDataDTO(mCategoryId,
+                                    mCategoryName, mCategoryIcon, mCategoryParentId, mCategoryStatus);
+                            categoryDTOs.add(categoryDataDTO);
+
+                        } while (cursor.moveToNext());
+                    }
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cursor != null)
+                cursor.close();
+            if (sqLiteDatabase != null && sqLiteDatabase.isOpen())
+                sqLiteDatabase.close();
+        }
+        return categoryDTOs;
     }
 }

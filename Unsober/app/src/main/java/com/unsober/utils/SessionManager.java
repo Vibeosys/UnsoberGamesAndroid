@@ -74,4 +74,8 @@ public class SessionManager {
     public String getCategoryUrl() {
         return mProjectSharedPref.getString(PropertyTypeConstants.GET_CATEGORY_URL, null);
     }
+
+    public String getItemUrl() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.GET_ITEMS_URL, null);
+    }
 }

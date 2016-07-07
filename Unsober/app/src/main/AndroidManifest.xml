@@ -25,20 +25,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.DisclaimerActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.MainCategoryActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activities.DisclaimerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.MainCategoryActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.SubCategoryActivity"
             android:configChanges="keyboard|keyboardHidden"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".activities.MainCategoryActivity"></activity>
+            android:parentActivityName=".activities.MainCategoryActivity"
+            android:screenOrientation="portrait"></activity>
         <!--Include the AdActivity configChanges and theme. -->
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />
+
+        <service
+            android:name=".services.CategorySyncService"
+            android:exported="false" />
     </application>
 
 </manifest>

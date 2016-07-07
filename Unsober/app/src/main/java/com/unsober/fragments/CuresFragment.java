@@ -27,7 +27,7 @@ public class CuresFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_cures, container, false);
         GridView gridView = (GridView) view.findViewById(R.id.subCategoryGrid);
         getActivity().setTitle(getResources().getString(R.string.str_cures_title));
-        ArrayList<Integer> data = new ArrayList<>();
+        /*ArrayList<Integer> data = new ArrayList<>();
         data.add(1);
         data.add(1);
         data.add(1);
@@ -39,7 +39,7 @@ public class CuresFragment extends Fragment {
         data.add(1);
         data.add(1);
         GridSubCategoryAdapter adapter = new GridSubCategoryAdapter(data, getActivity().getApplicationContext());
-        gridView.setAdapter(adapter);
+        gridView.setAdapter(adapter);*/
         return view;
     }
 }

@@ -12,13 +12,15 @@ import android.widget.GridView;
 
 import com.unsober.R;
 import com.unsober.adapter.GridSubCategoryAdapter;
+import com.unsober.data.ParentCategory;
+import com.unsober.data.adapterdata.CategoryDataDTO;
 
 import java.util.ArrayList;
 
 /**
  * Created by akshay on 05-07-2016.
  */
-public class GamesFragment extends Fragment {
+public class GamesFragment extends BaseFragment {
 
     @Nullable
     @Override
@@ -26,17 +28,8 @@ public class GamesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_game, container, false);
         GridView gridView = (GridView) view.findViewById(R.id.subCategoryGrid);
         getActivity().setTitle(getResources().getString(R.string.str_game_title));
-        ArrayList<Integer> data = new ArrayList<>();
-        data.add(1);
-        data.add(1);
-        data.add(1);
-        data.add(1);
-        data.add(1);
-        data.add(1);
-        data.add(1);
-        data.add(1);
-        data.add(1);
-        data.add(1);
+        ArrayList<CategoryDataDTO> data = new ArrayList<>();
+        data = mDbRepository.getCategoryList(ParentCategory.Games.getValue());
         GridSubCategoryAdapter adapter = new GridSubCategoryAdapter(data, getActivity().getApplicationContext());
         gridView.setAdapter(adapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
