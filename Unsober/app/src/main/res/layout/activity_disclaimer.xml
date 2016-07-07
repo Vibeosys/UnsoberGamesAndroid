@@ -18,16 +18,9 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="84dp"
-                android:layout_height="84dp"
-                android:src="@drawable/splash_screen_icon" />
-
-            <com.unsober.views.CuyabraTextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/str_splash_app_name"
-                android:textColor="@color/primaryText"
-                android:textSize="68dp" />
+                android:layout_height="180dp"
+                android:src="@drawable/ic_splash_icon" />
 
             <TextView
                 android:layout_width="wrap_content"

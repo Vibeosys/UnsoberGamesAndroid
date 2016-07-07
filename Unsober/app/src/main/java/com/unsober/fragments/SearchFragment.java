@@ -31,6 +31,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         Spinner spinner2 = (Spinner) view.findViewById(R.id.spinner2);
         Spinner spinner3 = (Spinner) view.findViewById(R.id.spinner3);
         Button btnSearch = (Button) view.findViewById(R.id.btnSearch);
+        getActivity().setTitle("Advanced Search");
         btnSearch.setOnClickListener(this);
         List<String> categories = new ArrayList<String>();
         categories.add("Football");
