@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parentLay"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
@@ -26,7 +27,8 @@
             android:layout_marginTop="2dp"
             android:padding="1dp"
             android:text="@string/str_game"
-            android:textColor="@color/secondaryText" />
+            android:textColor="@color/secondaryText"
+            android:textSize="12sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -51,7 +53,8 @@
             android:layout_marginTop="2dp"
             android:padding="1dp"
             android:text="@string/str_cocktails"
-            android:textColor="@color/secondaryText" />
+            android:textColor="@color/secondaryText"
+            android:textSize="12sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -75,8 +78,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:padding="1dp"
+            android:text="@string/str_cures"
             android:textColor="@color/secondaryText"
-            android:text="@string/str_cures" />
+            android:textSize="12sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -100,7 +104,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:padding="1dp"
+            android:text="@string/search"
 
-            android:text="@string/search" />
+            android:textSize="12sp" />
     </LinearLayout>
 </LinearLayout>

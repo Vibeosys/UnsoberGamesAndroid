@@ -10,6 +10,8 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.unsober.R;
 import com.unsober.adapter.GridSubCategoryAdapter;
 import com.unsober.adapter.ItemsListAdapter;
@@ -22,6 +24,7 @@ import java.util.List;
  */
 public class ItemsListFragment extends Fragment {
 
+    private AdView mAdView;
 
     public ItemsListFragment() {
     }
@@ -47,6 +50,13 @@ public class ItemsListFragment extends Fragment {
         data.add(1);
         data.add(1);
         data.add(1);
+        mAdView = (AdView) view.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("0C1256C41F20A2DA8E3751E2E9B38809")
+                .addTestDevice("DC7854A3ADFE5403F956AFB5B83C7391")
+                .addTestDevice("61626A327E33DC376127B6762DAFAE0C")
+                .build();
+        mAdView.loadAd(adRequest);
         ItemsListAdapter adapter = new ItemsListAdapter(data, getActivity().getApplicationContext());
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -57,5 +67,29 @@ public class ItemsListFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    @Override
+    public void onPause() {
+        if (mAdView != null) {
+            mAdView.pause();
+        }
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mAdView != null) {
+            mAdView.resume();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        if (mAdView != null) {
+            mAdView.destroy();
+        }
+        super.onDestroy();
     }
 }

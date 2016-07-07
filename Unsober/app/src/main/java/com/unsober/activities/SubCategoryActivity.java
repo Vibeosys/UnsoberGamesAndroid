@@ -1,5 +1,7 @@
 package com.unsober.activities;
 
+import android.content.res.Configuration;
+import android.os.PersistableBundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +10,7 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.unsober.R;
 import com.unsober.fragments.CocktailsFragment;
@@ -17,13 +20,14 @@ import com.unsober.fragments.SearchFragment;
 
 public class SubCategoryActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private LinearLayout mGameLay, mCocktailsLay, mCuresLay, mSearchLay;
+    private LinearLayout mGameLay, mCocktailsLay, mCuresLay, mSearchLay, mParentLay;
     private TextView mTxtGames, mTxtCocktails, mTxtCures, mTxtSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub_category);
+        mParentLay = (LinearLayout) findViewById(R.id.parentLay);
         mGameLay = (LinearLayout) findViewById(R.id.gameLay);
         mCocktailsLay = (LinearLayout) findViewById(R.id.cocktailLay);
         mCuresLay = (LinearLayout) findViewById(R.id.curesLay);
@@ -39,6 +43,16 @@ public class SubCategoryActivity extends AppCompatActivity implements View.OnCli
         mCuresLay.setOnClickListener(this);
         mSearchLay.setOnClickListener(this);
 
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (newConfig.keyboardHidden == Configuration.KEYBOARDHIDDEN_NO) {
+            Toast.makeText(this, "keyboard visible", Toast.LENGTH_SHORT).show();
+        } else if (newConfig.keyboardHidden == Configuration.KEYBOARDHIDDEN_YES) {
+            Toast.makeText(this, "keyboard hidden", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void setUpFragment(int i) {
@@ -78,7 +92,7 @@ public class SubCategoryActivity extends AppCompatActivity implements View.OnCli
                 break;
             default:
                 GamesFragment gamesFragmentDefault = new GamesFragment();
-                getFragmentManager().beginTransaction().add(R.id.fragment_frame_lay, gamesFragmentDefault).commit();
+                getFragmentManager().beginTransaction().replace(R.id.fragment_frame_lay, gamesFragmentDefault).commit();
                 mTxtGames.setTextColor(getResources().getColor(R.color.accentText));
                 mTxtCocktails.setTextColor(getResources().getColor(R.color.secondaryText));
                 mTxtCures.setTextColor(getResources().getColor(R.color.secondaryText));
@@ -92,5 +106,15 @@ public class SubCategoryActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         int id = v.getId();
         setUpFragment(id);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
     }
 }

@@ -29,7 +29,6 @@
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:orientation="horizontal">
-
             <include layout="@layout/bottom_menu_list"></include>
         </LinearLayout>
     </LinearLayout>
