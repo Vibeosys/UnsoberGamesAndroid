@@ -53,6 +53,8 @@ public class SessionManager {
 
         SharedPreferences.Editor editor = mProjectSharedPref.edit();
         editor.putInt(PropertyTypeConstants.DATABASE_VERSION_NUMBER, mPropertyFileReader.getDbVersion());
+        editor.putString(PropertyTypeConstants.GET_CATEGORY_URL, mPropertyFileReader.getCategoryUrl());
+        editor.putString(PropertyTypeConstants.GET_ITEMS_URL, mPropertyFileReader.getItemUrl());
         editor.apply();
         return true;
     }
@@ -67,5 +69,9 @@ public class SessionManager {
     public int getDatabaseVersion() {
         Log.d("DB version", "##" + mProjectSharedPref.getInt(PropertyTypeConstants.DATABASE_VERSION_NUMBER, 0));
         return mProjectSharedPref.getInt(PropertyTypeConstants.DATABASE_VERSION_NUMBER, 0);
+    }
+
+    public String getCategoryUrl() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.GET_CATEGORY_URL, null);
     }
 }

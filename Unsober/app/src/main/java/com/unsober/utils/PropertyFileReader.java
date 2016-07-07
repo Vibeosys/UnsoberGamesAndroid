@@ -65,4 +65,12 @@ public class PropertyFileReader {
         String versionNumber = mProperties.getProperty(PropertyTypeConstants.DATABASE_VERSION_NUMBER);
         return Integer.valueOf(versionNumber);
     }
+
+    public String getCategoryUrl() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.GET_CATEGORY_URL);
+    }
+
+    public String getItemUrl() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.GET_ITEMS_URL);
+    }
 }

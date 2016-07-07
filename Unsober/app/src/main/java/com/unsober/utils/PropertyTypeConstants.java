@@ -10,4 +10,7 @@ public class PropertyTypeConstants {
     public static final String DATABASE_FILE_NAME = "db.file.name";
     public static final String VERSION_NUMBER = "version.number";
     public static final String DATABASE_VERSION_NUMBER = "database.version.number";
+    public static final String GET_CATEGORY_URL = "api.endpoint.getcategories";
+    public static final String GET_ITEMS_URL = "api.endpoint.getitems";
+
 }

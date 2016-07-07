@@ -5,5 +5,5 @@ package com.unsober.utils;
  */
 public class ServerRequestConstants {
 
-    public static int REQUEST_CATEGORY = 111;
+    public final static int REQUEST_CATEGORY = 111;
 }
