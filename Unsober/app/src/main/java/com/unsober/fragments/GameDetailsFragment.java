@@ -22,19 +22,14 @@ import com.unsober.R;
  */
 public class GameDetailsFragment extends Fragment {
     private TextView mGameDescription;
-    private ScrollView mScrollView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //return super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.fragment_game_details, container, false);
-        mScrollView = (ScrollView) view.findViewById(R.id.gameScrollview);
-        mScrollView.scrollTo(0,0);
+        View view = inflater.inflate(R.layout.fragment_details_layout, container, false);
         getActivity().setTitle("Game Title#1");
         mGameDescription = (TextView) view.findViewById(R.id.txtDescription);
-        mGameDescription.requestFocus();
-        mGameDescription.setFocusable(true);
         mGameDescription.setText(Html.fromHtml(getResources().getString(R.string.game_description)));
         /*mGameDescription.setFocusable(true);*/
 

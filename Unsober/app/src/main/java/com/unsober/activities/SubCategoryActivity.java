@@ -25,11 +25,19 @@ public class SubCategoryActivity extends AppCompatActivity implements View.OnCli
 
     private LinearLayout mGameLay, mCocktailsLay, mCuresLay, mSearchLay, mParentLay;
     private TextView mTxtGames, mTxtCocktails, mTxtCures, mTxtSearch;
+    private int selectedId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub_category);
+        try {
+            selectedId = getIntent().getExtras().getInt("TabId");
+        } catch (NumberFormatException e) {
+
+        } catch (Exception e) {
+        }
+
         mParentLay = (LinearLayout) findViewById(R.id.parentLay);
         mGameLay = (LinearLayout) findViewById(R.id.gameLay);
         mCocktailsLay = (LinearLayout) findViewById(R.id.cocktailLay);
@@ -39,8 +47,7 @@ public class SubCategoryActivity extends AppCompatActivity implements View.OnCli
         mTxtCocktails = (TextView) findViewById(R.id.txtCocktails);
         mTxtCures = (TextView) findViewById(R.id.txtCures);
         mTxtSearch = (TextView) findViewById(R.id.txtSearch);
-        setUpFragment(0);
-
+        setUpFragment(selectedId);
         mGameLay.setOnClickListener(this);
         mCocktailsLay.setOnClickListener(this);
         mCuresLay.setOnClickListener(this);
@@ -52,9 +59,9 @@ public class SubCategoryActivity extends AppCompatActivity implements View.OnCli
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         if (newConfig.keyboardHidden == Configuration.KEYBOARDHIDDEN_NO) {
-            Toast.makeText(this, "keyboard visible", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "keyboard visible", Toast.LENGTH_SHORT).show();
         } else if (newConfig.keyboardHidden == Configuration.KEYBOARDHIDDEN_YES) {
-            Toast.makeText(this, "keyboard hidden", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "keyboard hidden", Toast.LENGTH_SHORT).show();
         }
     }
 
