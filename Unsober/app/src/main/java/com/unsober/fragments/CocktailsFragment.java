@@ -22,6 +22,7 @@ public class CocktailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cocktail, container, false);
         GridView gridView = (GridView) view.findViewById(R.id.subCategoryGrid);
+        getActivity().setTitle(getResources().getString(R.string.str_title_cocktails));
         ArrayList<Integer> data = new ArrayList<>();
         data.add(1);
         data.add(1);

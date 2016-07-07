@@ -39,6 +39,7 @@ public class ItemsListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
         ListView listView = (ListView) view.findViewById(R.id.list_item);
+        getActivity().setTitle(getResources().getString(R.string.str_sport_games));
         ArrayList<Integer> data = new ArrayList<>();
         data.add(1);
         data.add(1);
