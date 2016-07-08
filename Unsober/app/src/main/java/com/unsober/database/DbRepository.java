@@ -233,8 +233,8 @@ public class DbRepository extends SQLiteOpenHelper {
             sqLiteDatabase = getReadableDatabase();
                 synchronized (sqLiteDatabase)
                 {
-                    cursor = sqLiteDatabase.rawQuery("SELECT * from" +SqlContract.SqlItems.TABLE_NAME +" where "
-                    + SqlContract.SqlItems.STATUS + "=1 AND" +SqlContract.SqlItems.CATEGORY_ID+"=?",whereClause);
+                    cursor = sqLiteDatabase.rawQuery("SELECT * from " +SqlContract.SqlItems.TABLE_NAME +" where "
+                    + SqlContract.SqlItems.STATUS + "=1 AND " +SqlContract.SqlItems.CATEGORY_ID+"=?",whereClause);
                     gameListDataDTO = new ArrayList<>();
                     if(cursor!=null)
                     {
