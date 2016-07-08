@@ -102,33 +102,65 @@ public class DbRepository extends SQLiteOpenHelper {
         SQLiteDatabase sqLiteDatabase = null;
         ContentValues contentValues = null;
         long count = -1;
-        try {
-            sqLiteDatabase = getWritableDatabase();
-            synchronized (sqLiteDatabase) {
-                contentValues = new ContentValues();
-                for (ResponseCategoryDTO responseCategoryDTO : responseCategoryDTOs) {
+
+        for (ResponseCategoryDTO responseCategoryDTO : responseCategoryDTOs) {
+            int rowCount = 0;
+            String[] whereClause = new String[]{String.valueOf(responseCategoryDTO.getId())};
+            try {
+                sqLiteDatabase = getReadableDatabase();
+                synchronized (sqLiteDatabase) {
+                    Cursor cursor = sqLiteDatabase.rawQuery("Select * From " + SqlContract.SqlCategories.TABLE_NAME
+                            + " Where " + SqlContract.SqlCategories.ID + "=?", whereClause);
+                    rowCount = cursor.getCount();
+                    cursor.close();
+                    sqLiteDatabase.close();
+                    flagError = true;
+                }
+            } catch (Exception e) {
+                flagError = false;
+                errorMessage = e.getMessage();
+                Log.e(TAG, "##Error while Get Category " + e.toString());
+            } finally {
+                if (sqLiteDatabase != null && sqLiteDatabase.isOpen())
+                    sqLiteDatabase.close();
+                if (!flagError)
+                    Log.e(TAG, "##Get Category" + errorMessage);
+            }
+            try {
+                sqLiteDatabase = getWritableDatabase();
+                synchronized (sqLiteDatabase) {
+                    contentValues = new ContentValues();
                     contentValues.put(SqlContract.SqlCategories.ID, responseCategoryDTO.getId());
                     contentValues.put(SqlContract.SqlCategories.NAME, responseCategoryDTO.getName());
                     contentValues.put(SqlContract.SqlCategories.ICON, responseCategoryDTO.getIcon());
                     contentValues.put(SqlContract.SqlCategories.PARENT_ID, responseCategoryDTO.getParent_id());
                     contentValues.put(SqlContract.SqlCategories.STATUS, responseCategoryDTO.getStatus());
                     if (!sqLiteDatabase.isOpen()) sqLiteDatabase = getWritableDatabase();
-                    count = sqLiteDatabase.insert(SqlContract.SqlCategories.TABLE_NAME, null, contentValues);
+                    if (rowCount > 0) {
+                        count = sqLiteDatabase.update(SqlContract.SqlCategories.TABLE_NAME, contentValues,
+                                SqlContract.SqlCategories.ID + "=?", whereClause);
+                        Log.d(TAG, "## Category is Updated Successfully");
+                    } else {
+                        sqLiteDatabase = getWritableDatabase();
+                        count = sqLiteDatabase.insert(SqlContract.SqlCategories.TABLE_NAME, null, contentValues);
+                        Log.d(TAG, "## Category is Added Successfully");
+                    }
+
                     contentValues.clear();
-                    Log.d(TAG, "## Category is Added Successfully");
                     flagError = true;
                 }
+            } catch (Exception e) {
+                flagError = false;
+                errorMessage = e.getMessage();
+                Log.e(TAG, "##Error while insert category " + e.toString());
+            } finally {
+                if (sqLiteDatabase != null && sqLiteDatabase.isOpen())
+                    sqLiteDatabase.close();
+                if (!flagError)
+                    Log.e(TAG, "##Insert Category" + errorMessage);
             }
-        } catch (Exception e) {
-            flagError = false;
-            errorMessage = e.getMessage();
-            Log.e(TAG, "##Error while insert category " + e.toString());
-        } finally {
-            if (sqLiteDatabase != null && sqLiteDatabase.isOpen())
-                sqLiteDatabase.close();
-            if (!flagError)
-                Log.e(TAG, "##Insert Category" + errorMessage);
         }
+
         return flagError;
     }
 
@@ -137,14 +169,36 @@ public class DbRepository extends SQLiteOpenHelper {
         boolean flagError = false;
         String errorMessage = "";
         SQLiteDatabase sqLiteDatabase = null;
-        ContentValues contentValues = null;
         DateUtils dateUtils = new DateUtils();
         long count = -1;
-        try {
-            sqLiteDatabase = getWritableDatabase();
-            synchronized (sqLiteDatabase) {
-                contentValues = new ContentValues();
-                for (ResponseItemDTO responseItemDTO : responseItemDTOs) {
+        for (ResponseItemDTO responseItemDTO : responseItemDTOs) {
+            int rowCount = 0;
+            String[] whereClause = new String[]{String.valueOf(responseItemDTO.getId())};
+            try {
+                sqLiteDatabase = getReadableDatabase();
+                synchronized (sqLiteDatabase) {
+                    Cursor cursor = sqLiteDatabase.rawQuery("Select * From " + SqlContract.SqlItems.TABLE_NAME
+                            + " Where " + SqlContract.SqlItems.ID + "=?", whereClause);
+                    rowCount = cursor.getCount();
+                    cursor.close();
+                    sqLiteDatabase.close();
+                    flagError = true;
+                }
+            } catch (Exception e) {
+                flagError = false;
+                errorMessage = e.getMessage();
+                Log.e(TAG, "##Error while insert Item " + e.toString());
+            } finally {
+                if (sqLiteDatabase != null && sqLiteDatabase.isOpen())
+                    sqLiteDatabase.close();
+                if (!flagError)
+                    Log.e(TAG, "##Insert Item" + errorMessage);
+            }
+            try {
+                sqLiteDatabase = getWritableDatabase();
+                synchronized (sqLiteDatabase) {
+                    ContentValues contentValues = null;
+                    contentValues = new ContentValues();
                     contentValues.put(SqlContract.SqlItems.ID, responseItemDTO.getId());
                     contentValues.put(SqlContract.SqlItems.TITLE, responseItemDTO.getTitle());
                     contentValues.put(SqlContract.SqlItems.DESC, responseItemDTO.getDescription());
@@ -158,24 +212,32 @@ public class DbRepository extends SQLiteOpenHelper {
                     contentValues.put(SqlContract.SqlItems.STATUS, responseItemDTO.getStatus());
                     contentValues.put(SqlContract.SqlItems.DATE_TIME, (responseItemDTO.getDatetime())); // date time problem
                     contentValues.put(SqlContract.SqlItems.VIEWS, responseItemDTO.getViews());
-
                     if (!sqLiteDatabase.isOpen())
                         sqLiteDatabase = getWritableDatabase();
-                    count = sqLiteDatabase.insert(SqlContract.SqlItems.TABLE_NAME, null, contentValues);
+                    if (rowCount > 0) {
+
+                        count = sqLiteDatabase.update(SqlContract.SqlItems.TABLE_NAME, contentValues,
+                                SqlContract.SqlItems.ID + "=?", whereClause);
+                        Log.d(TAG, "## Item is Updated Successfully");
+                    } else {
+                        sqLiteDatabase = getWritableDatabase();
+                        count = sqLiteDatabase.insert(SqlContract.SqlItems.TABLE_NAME, null, contentValues);
+                        Log.d(TAG, "## Item is Added Successfully");
+                    }
+
                     contentValues.clear();
-                    Log.d(TAG, "## Item is Added Successfully");
                     flagError = true;
                 }
+            } catch (Exception e) {
+                flagError = false;
+                errorMessage = e.getMessage();
+                Log.e(TAG, "##Error while insert Item " + e.toString());
+            } finally {
+                if (sqLiteDatabase != null && sqLiteDatabase.isOpen())
+                    sqLiteDatabase.close();
+                if (!flagError)
+                    Log.e(TAG, "##Insert Item" + errorMessage);
             }
-        } catch (Exception e) {
-            flagError = false;
-            errorMessage = e.getMessage();
-            Log.e(TAG, "##Error while insert Item " + e.toString());
-        } finally {
-            if (sqLiteDatabase != null && sqLiteDatabase.isOpen())
-                sqLiteDatabase.close();
-            if (!flagError)
-                Log.e(TAG, "##Insert Item" + errorMessage);
         }
         return flagError;
     }
@@ -222,42 +284,36 @@ public class DbRepository extends SQLiteOpenHelper {
         return categoryDTOs;
     }
 
-    public ArrayList<GameListDataDTO>getGameList(long mCategoryId)
-    {
+    public ArrayList<GameListDataDTO> getGameList(long mCategoryId) {
         SQLiteDatabase sqLiteDatabase = null;
         Cursor cursor = null;
-        ArrayList<GameListDataDTO> gameListDataDTO =null;
-        try
-        {
-            String [] whereClause = new String[]{String.valueOf(mCategoryId)};
+        ArrayList<GameListDataDTO> gameListDataDTO = null;
+        try {
+            String[] whereClause = new String[]{String.valueOf(mCategoryId)};
             sqLiteDatabase = getReadableDatabase();
-                synchronized (sqLiteDatabase)
-                {
-                    cursor = sqLiteDatabase.rawQuery("SELECT * from " +SqlContract.SqlItems.TABLE_NAME +" where "
-                    + SqlContract.SqlItems.STATUS + "=1 AND " +SqlContract.SqlItems.CATEGORY_ID+"=?",whereClause);
-                    gameListDataDTO = new ArrayList<>();
-                    if(cursor!=null)
-                    {
-                        if(cursor.getCount()>0)
-                        {
-                            cursor.moveToFirst();
-                            do{
-                                long mItemId = cursor.getLong(cursor.getColumnIndex(SqlContract.SqlItems.ID));
-                                String mImagePath = cursor.getString(cursor.getColumnIndex(SqlContract.SqlItems.IMG_LINK));
-                                String mNumberOfPlayers = cursor.getString(cursor.getColumnIndex(SqlContract.SqlItems.NO_OF_PLAYERS));
-                                String mGameTitle = cursor.getString(cursor.getColumnIndex(SqlContract.SqlItems.TITLE));
+            synchronized (sqLiteDatabase) {
+                cursor = sqLiteDatabase.rawQuery("SELECT * from " + SqlContract.SqlItems.TABLE_NAME + " where "
+                        + SqlContract.SqlItems.STATUS + "=1 AND " + SqlContract.SqlItems.CATEGORY_ID + "=?", whereClause);
+                gameListDataDTO = new ArrayList<>();
+                if (cursor != null) {
+                    if (cursor.getCount() > 0) {
+                        cursor.moveToFirst();
+                        do {
+                            long mItemId = cursor.getLong(cursor.getColumnIndex(SqlContract.SqlItems.ID));
+                            String mImagePath = cursor.getString(cursor.getColumnIndex(SqlContract.SqlItems.IMG_LINK));
+                            String mNumberOfPlayers = cursor.getString(cursor.getColumnIndex(SqlContract.SqlItems.NO_OF_PLAYERS));
+                            String mGameTitle = cursor.getString(cursor.getColumnIndex(SqlContract.SqlItems.TITLE));
 
-                                GameListDataDTO gameListDataDTOs = new GameListDataDTO(mItemId,mGameTitle,mImagePath,mNumberOfPlayers);
-                                gameListDataDTO.add(gameListDataDTOs);
+                            GameListDataDTO gameListDataDTOs = new GameListDataDTO(mItemId, mGameTitle, mImagePath, mNumberOfPlayers);
+                            gameListDataDTO.add(gameListDataDTOs);
 
-                            }while (cursor.moveToNext());
-                        }
+                        } while (cursor.moveToNext());
                     }
                 }
-        }catch (Exception e)
-        {
-            Log.e("getGameList",e.toString());
-        }finally {
+            }
+        } catch (Exception e) {
+            Log.e("getGameList", e.toString());
+        } finally {
             if (cursor != null)
                 cursor.close();
             if (sqLiteDatabase != null && sqLiteDatabase.isOpen())
