@@ -8,8 +8,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.unsober.R;
 import com.unsober.data.adapterdata.GameListDataDTO;
+import com.unsober.utils.CustomVolleyRequestQueue;
 
 import java.util.ArrayList;
 
@@ -21,6 +24,7 @@ public class ItemsListAdapter extends BaseAdapter {
     private ArrayList<Integer> data;
     private ArrayList<GameListDataDTO> gameListDataDTO;
     private Context mContext;
+    private ImageLoader mImageLoader;
 
     public ItemsListAdapter(ArrayList<GameListDataDTO> gameListDataDTO, Context mContext) {
         this.gameListDataDTO = gameListDataDTO;
@@ -54,6 +58,7 @@ public class ItemsListAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             viewHolder.gameTitle = (TextView) row.findViewById(R.id.gameTitle);
             viewHolder.NumberOfPlayers = (TextView) row.findViewById(R.id.gameNumberOfPlayers);
+            viewHolder.gameImage = (NetworkImageView) row.findViewById(R.id.gameImageView);
             row.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -62,13 +67,27 @@ public class ItemsListAdapter extends BaseAdapter {
 
         viewHolder.gameTitle.setText(gameList.getGameTitle());
         viewHolder.NumberOfPlayers.setText("Minimum of "+ gameList.getNumberOfPlayers()+" Players");
-
+        viewHolder.gameImage.setImageResource(R.drawable.ic_icon);
+        mImageLoader = CustomVolleyRequestQueue.getInstance(mContext)
+                .getImageLoader();
+        final String url = gameList.getImageLink();
+        if (url != null && !url.isEmpty()) {
+            try {
+                mImageLoader.get(url, ImageLoader.getImageListener(viewHolder.gameImage,
+                        R.drawable.ic_icon, R.drawable.ic_icon));
+                viewHolder.gameImage.setImageUrl(url, mImageLoader);
+            } catch (Exception e) {
+                viewHolder.gameImage.setImageResource(R.drawable.ic_icon);
+            }
+        } else {
+            viewHolder.gameImage.setImageResource(R.drawable.ic_icon);
+        }
         return row;
     }
 
     private class ViewHolder {
         TextView gameTitle;
         TextView NumberOfPlayers;
-        ImageView gameImage;
+        NetworkImageView gameImage;
     }
 }

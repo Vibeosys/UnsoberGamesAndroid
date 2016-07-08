@@ -59,17 +59,7 @@ public class ItemsListFragment extends BaseFragment {
             Log.e("ItemList","Cannot get category Id");
         }
 
-       /* ArrayList<Integer> data = new ArrayList<>();
-        data.add(1);
-        data.add(1);
-        data.add(1);
-        data.add(1);
-        data.add(1);
-        data.add(1);
-        data.add(1);
-        data.add(1);
-        data.add(1);
-        data.add(1);*/
+
         mAdView = (AdView) view.findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice("0C1256C41F20A2DA8E3751E2E9B38809")
@@ -77,8 +67,7 @@ public class ItemsListFragment extends BaseFragment {
                 .addTestDevice("61626A327E33DC376127B6762DAFAE0C")
                 .build();
         mAdView.loadAd(adRequest);
-        /*ItemsListAdapter adapter = new ItemsListAdapter(data, getActivity().getApplicationContext());
-        listView.setAdapter(adapter);*/
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
