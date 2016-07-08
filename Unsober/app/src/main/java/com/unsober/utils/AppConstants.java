@@ -6,4 +6,5 @@ package com.unsober.utils;
 public class AppConstants {
 
     public final static int SERVICE_TIME_OUT = 15;
+    public final static String YOUTUBE_AUTH_KEY = "AIzaSyCUuklKoJjNIFzrc34DcxCZiBhr6S26NXg";
 }

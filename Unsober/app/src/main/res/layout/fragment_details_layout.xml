@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    xmlns:ads="http://schemas.android.com/apk/res-auto">
+    android:orientation="vertical">
 
 
     <ScrollView
@@ -85,11 +85,16 @@
                     android:textColor="@android:color/white" />
             </LinearLayout>
 
-            <ImageView
+            <FrameLayout
+                android:id="@+id/youtube_fragment"
                 android:layout_width="match_parent"
-                android:layout_height="210dp"
-                android:layout_margin="12dp"
-                android:background="@color/primaryText" />
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="16dp"
+                android:visibility="visible" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -110,6 +115,7 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
         android:layout_width="match_parent"
