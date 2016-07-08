@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.unsober.R;
 import com.unsober.services.CategorySyncService;
+import com.unsober.services.ItemSynService;
 
 public class DisclaimerActivity extends BaseActivity implements View.OnClickListener {
 
@@ -18,6 +19,8 @@ public class DisclaimerActivity extends BaseActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         syncCategoryIntent = new Intent(Intent.ACTION_SYNC, null, this, CategorySyncService.class);
+        Intent syncItemIntent = new Intent(Intent.ACTION_SYNC,null,this, ItemSynService.class);
+        startService(syncItemIntent);
         setContentView(R.layout.activity_disclaimer);
         getSupportActionBar().hide();
         txtAccept = (TextView) findViewById(R.id.txtAccept);

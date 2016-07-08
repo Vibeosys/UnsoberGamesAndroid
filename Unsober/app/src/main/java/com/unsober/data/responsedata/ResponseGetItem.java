@@ -8,17 +8,17 @@ import java.util.ArrayList;
  * Created by shrinivas on 07-07-2016.
  */
 public class ResponseGetItem  extends BaseDTO{
-    ArrayList<ResponseItemDTO>responseItem ;
+    ArrayList<ResponseItemDTO> items;
 
 
     public ResponseGetItem() {
     }
 
     public ArrayList<ResponseItemDTO> getResponseItemDTO() {
-        return responseItem;
+        return items;
     }
 
     public void setResponseItemDTO(ArrayList<ResponseItemDTO> responseItemDTO) {
-        this.responseItem = responseItemDTO;
+        this.items = responseItemDTO;
     }
 }

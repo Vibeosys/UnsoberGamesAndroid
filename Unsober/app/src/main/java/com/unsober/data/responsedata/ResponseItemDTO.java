@@ -1,5 +1,7 @@
 package com.unsober.data.responsedata;
 
+import java.util.Date;
+
 /**
  * Created by shrinivas on 07-07-2016.
  */

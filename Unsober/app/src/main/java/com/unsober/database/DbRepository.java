@@ -9,12 +9,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.unsober.data.adapterdata.CategoryDataDTO;
+import com.unsober.data.adapterdata.GameListDataDTO;
 import com.unsober.data.responsedata.ResponseCategoryDTO;
 import com.unsober.data.responsedata.ResponseItemDTO;
 import com.unsober.utils.DateUtils;
 import com.unsober.utils.SessionManager;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -131,7 +133,7 @@ public class DbRepository extends SQLiteOpenHelper {
     }
 
 
-    public boolean inserItems(List<ResponseItemDTO> responseItemDTOs) {
+    public boolean insertItems(List<ResponseItemDTO> responseItemDTOs) {
         boolean flagError = false;
         String errorMessage = "";
         SQLiteDatabase sqLiteDatabase = null;
@@ -154,9 +156,9 @@ public class DbRepository extends SQLiteOpenHelper {
                     contentValues.put(SqlContract.SqlItems.TAG3, responseItemDTO.getTag3());
                     contentValues.put(SqlContract.SqlItems.CATEGORY_ID, responseItemDTO.getCategory_id());
                     contentValues.put(SqlContract.SqlItems.STATUS, responseItemDTO.getStatus());
+                    contentValues.put(SqlContract.SqlItems.DATE_TIME, (responseItemDTO.getDatetime())); // date time problem
                     contentValues.put(SqlContract.SqlItems.VIEWS, responseItemDTO.getViews());
-                    /*contentValues.put(SqlContract.SqlItems.DATE_TIME,
-                            dateUtils.getDateAndTimeFromLong(responseItemDTO.getDatetime()));*/ // date time problem
+
                     if (!sqLiteDatabase.isOpen())
                         sqLiteDatabase = getWritableDatabase();
                     count = sqLiteDatabase.insert(SqlContract.SqlItems.TABLE_NAME, null, contentValues);
@@ -218,5 +220,50 @@ public class DbRepository extends SQLiteOpenHelper {
                 sqLiteDatabase.close();
         }
         return categoryDTOs;
+    }
+
+    public ArrayList<GameListDataDTO>getGameList(long mCategoryId)
+    {
+        SQLiteDatabase sqLiteDatabase = null;
+        Cursor cursor = null;
+        ArrayList<GameListDataDTO> gameListDataDTO =null;
+        try
+        {
+            String [] whereClause = new String[]{String.valueOf(mCategoryId)};
+            sqLiteDatabase = getReadableDatabase();
+                synchronized (sqLiteDatabase)
+                {
+                    cursor = sqLiteDatabase.rawQuery("SELECT * from" +SqlContract.SqlItems.TABLE_NAME +" where "
+                    + SqlContract.SqlItems.STATUS + "=1 AND" +SqlContract.SqlItems.CATEGORY_ID+"=?",whereClause);
+                    gameListDataDTO = new ArrayList<>();
+                    if(cursor!=null)
+                    {
+                        if(cursor.getCount()>0)
+                        {
+                            cursor.moveToFirst();
+                            do{
+                                long mItemId = cursor.getLong(cursor.getColumnIndex(SqlContract.SqlItems.ID));
+                                String mImagePath = cursor.getString(cursor.getColumnIndex(SqlContract.SqlItems.IMG_LINK));
+                                String mNumberOfPlayers = cursor.getString(cursor.getColumnIndex(SqlContract.SqlItems.NO_OF_PLAYERS));
+                                String mGameTitle = cursor.getString(cursor.getColumnIndex(SqlContract.SqlItems.TITLE));
+
+                                GameListDataDTO gameListDataDTOs = new GameListDataDTO(mItemId,mGameTitle,mImagePath,mNumberOfPlayers);
+                                gameListDataDTO.add(gameListDataDTOs);
+
+                            }while (cursor.moveToNext());
+                        }
+                    }
+                }
+        }catch (Exception e)
+        {
+            Log.e("getGameList",e.toString());
+        }finally {
+            if (cursor != null)
+                cursor.close();
+            if (sqLiteDatabase != null && sqLiteDatabase.isOpen())
+                sqLiteDatabase.close();
+        }
+
+        return gameListDataDTO;
     }
 }

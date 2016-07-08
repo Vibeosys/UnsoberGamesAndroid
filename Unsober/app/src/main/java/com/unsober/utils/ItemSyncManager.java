@@ -78,7 +78,7 @@ public class ItemSyncManager implements ServerSyncManager.OnSuccessResultReceive
 
         @Override
         protected Void doInBackground(Void... params) {
-            mDbRepository.inserItems(this.itmes);
+            mDbRepository.insertItems(this.itmes);
             return null;
         }
     }
