@@ -20,14 +20,12 @@ import java.util.ArrayList;
 /**
  * Created by akshay on 06-07-2016.
  */
-public class ItemsListFragment extends BaseFragment {
+public class ItemsListFragment extends ItemListBaseFragment {
 
     private AdView mAdView;
-    private Long mCategoryId;
+    private long mCategoryId;
     private ItemsListAdapter mAdapter;
-
-    public ItemsListFragment() {
-    }
+    private ArrayList<GameListDataDTO> mGameListDataDTO;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,8 +43,8 @@ public class ItemsListFragment extends BaseFragment {
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             mCategoryId = getArguments().getLong("categoryId");
-            ArrayList<GameListDataDTO> gameListDataDTO = mDbRepository.getGameList(mCategoryId);
-            mAdapter = new ItemsListAdapter(gameListDataDTO, getActivity().getApplicationContext());
+            mGameListDataDTO = mDbRepository.getGameList(mCategoryId);
+            mAdapter = new ItemsListAdapter(mGameListDataDTO, getActivity().getApplicationContext());
             listView.setAdapter(mAdapter);
         } else {
             Log.e("ItemList", "Cannot get category Id");
@@ -97,5 +95,20 @@ public class ItemsListFragment extends BaseFragment {
             mAdView.destroy();
         }
         super.onDestroy();
+    }
+
+    @Override
+    protected ArrayList<GameListDataDTO> getList() {
+        return mGameListDataDTO;
+    }
+
+    @Override
+    protected ItemsListAdapter getAdapter() {
+        return mAdapter;
+    }
+
+    @Override
+    protected long getCategoryId() {
+        return mCategoryId;
     }
 }

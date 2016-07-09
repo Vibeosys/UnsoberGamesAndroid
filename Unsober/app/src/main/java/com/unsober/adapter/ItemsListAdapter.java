@@ -21,7 +21,6 @@ import java.util.ArrayList;
  */
 public class ItemsListAdapter extends BaseAdapter {
 
-    private ArrayList<Integer> data;
     private ArrayList<GameListDataDTO> gameListDataDTO;
     private Context mContext;
     private ImageLoader mImageLoader;
@@ -66,7 +65,7 @@ public class ItemsListAdapter extends BaseAdapter {
         GameListDataDTO gameList = gameListDataDTO.get(position);
 
         viewHolder.gameTitle.setText(gameList.getGameTitle());
-        viewHolder.NumberOfPlayers.setText("Minimum of "+ gameList.getNumberOfPlayers()+" Players");
+        viewHolder.NumberOfPlayers.setText("Minimum of " + gameList.getNumberOfPlayers() + " Players");
         viewHolder.gameImage.setImageResource(R.drawable.ic_icon);
         mImageLoader = CustomVolleyRequestQueue.getInstance(mContext)
                 .getImageLoader();
@@ -83,6 +82,12 @@ public class ItemsListAdapter extends BaseAdapter {
             viewHolder.gameImage.setImageResource(R.drawable.ic_icon);
         }
         return row;
+    }
+
+    public void refresh(ArrayList<GameListDataDTO> searchedList) {
+        this.gameListDataDTO.clear();
+        this.gameListDataDTO.addAll(searchedList);
+        notifyDataSetChanged();
     }
 
     private class ViewHolder {
