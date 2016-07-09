@@ -3,34 +3,41 @@ package com.unsober.fragments;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.app.Fragment;
 
 
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerFragment;
-import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import com.unsober.R;
+import com.unsober.data.adapterdata.ItemDataDTO;
 import com.unsober.utils.AppConstants;
+import com.unsober.utils.CustomVolleyRequestQueue;
 
 /**
  * Created by shrinivas on 06-07-2016.
  */
-public class GameDetailsFragment extends Fragment implements YouTubePlayer.OnInitializedListener {
-    private TextView mGameDescription;
+public class GameDetailsFragment extends BaseFragment implements YouTubePlayer.OnInitializedListener {
+    private static final String TAG = GameDetailsFragment.class.getSimpleName();
+    private TextView mTxtTitle, mTxtDescription, mTxtPlayers, mTxtViews;
     private AdView mAdView;
+    private NetworkImageView mImgGame;
+    private ItemDataDTO mItemDataDTO;
+    private long mItemId = 0;
+    private ImageLoader mImageLoader;
 
     @Nullable
     @Override
@@ -38,22 +45,62 @@ public class GameDetailsFragment extends Fragment implements YouTubePlayer.OnIni
         //return super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_details_layout, container, false);
         getActivity().setTitle("Game Title#1");
-        mGameDescription = (TextView) view.findViewById(R.id.txtDescription);
+
+        mTxtTitle = (TextView) view.findViewById(R.id.txtTitle);
+        mTxtDescription = (TextView) view.findViewById(R.id.txtDescription);
+        mTxtPlayers = (TextView) view.findViewById(R.id.txtPlayers);
+        mTxtViews = (TextView) view.findViewById(R.id.txtViews);
+        mImgGame = (NetworkImageView) view.findViewById(R.id.imgGame);
+        mAdView = (AdView) view.findViewById(R.id.adView);
+        try {
+            Bundle bundle = this.getArguments();
+            if (bundle != null) {
+                mItemId = getArguments().getLong("itemId");
+            } else {
+                Log.e(TAG, "## Error to get the item no");
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "## error tp get bundle data");
+        }
+
+        if (mItemId != 0)
+            setUpUI();
+        return view;
+    }
+
+    private void setUpUI() {
+        mItemDataDTO = mDbRepository.getItemDetail(mItemId);
         YouTubePlayerFragment youTubePlayerFragment = YouTubePlayerFragment.newInstance();
         youTubePlayerFragment.initialize(AppConstants.YOUTUBE_AUTH_KEY, this);
 
-        mGameDescription.setText(Html.fromHtml(getResources().getString(R.string.game_description)));
-        /*mGameDescription.setFocusable(true);*/
-        mAdView = (AdView) view.findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice("0C1256C41F20A2DA8E3751E2E9B38809")
                 .addTestDevice("DC7854A3ADFE5403F956AFB5B83C7391")
                 .addTestDevice("61626A327E33DC376127B6762DAFAE0C")
                 .build();
         mAdView.loadAd(adRequest);
+        mTxtTitle.setText(mItemDataDTO.getItemTitle());
+        mTxtDescription.setText(Html.fromHtml(mItemDataDTO.getItemDescription()));
+        mTxtPlayers.setText("Minimum of " + mItemDataDTO.getNoOfPlayers() + " Players");
+        mTxtViews.setText(mItemDataDTO.getItemView() + " Views");
+
+        mImageLoader = CustomVolleyRequestQueue.getInstance(getActivity().getApplicationContext())
+                .getImageLoader();
+        final String url = mItemDataDTO.getItemImageLink();
+        if (url != null && !url.isEmpty()) {
+            try {
+                mImageLoader.get(url, ImageLoader.getImageListener(mImgGame,
+                        R.drawable.cooler, R.drawable.cooler));
+                mImgGame.setImageUrl(url, mImageLoader);
+            } catch (Exception e) {
+                mImgGame.setImageResource(R.drawable.cooler);
+            }
+        } else {
+            mImgGame.setImageResource(R.drawable.cooler);
+        }
+
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.add(R.id.youtube_fragment, youTubePlayerFragment).commit();
-        return view;
     }
 
     @Override

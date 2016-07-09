@@ -16,11 +16,12 @@ public class ItemDataDTO {
     private int mItemStatus;
     private String mItemDateTime;
     private long mItemView;
+    private int mNoOfPlayers;
 
     public ItemDataDTO(long mItemId, String mItemTitle, String mItemDescription,
                        String mItemImageLink, String mItemYoutubeLink, String mItemTag1,
                        String mItemTag2, String mItemTag3, int mItemCategoryId, int mItemStatus,
-                       String mItemDateTime, long mItemView) {
+                       String mItemDateTime, long mItemView, int mNoOfPlayers) {
         this.mItemId = mItemId;
         this.mItemTitle = mItemTitle;
         this.mItemDescription = mItemDescription;
@@ -33,6 +34,7 @@ public class ItemDataDTO {
         this.mItemStatus = mItemStatus;
         this.mItemDateTime = mItemDateTime;
         this.mItemView = mItemView;
+        this.mNoOfPlayers = mNoOfPlayers;
     }
 
     public long getItemId() {
@@ -129,5 +131,13 @@ public class ItemDataDTO {
 
     public void setItemView(long mItemView) {
         this.mItemView = mItemView;
+    }
+
+    public int getNoOfPlayers() {
+        return mNoOfPlayers;
+    }
+
+    public void setNoOfPlayers(int mNoOfPlayers) {
+        this.mNoOfPlayers = mNoOfPlayers;
     }
 }

@@ -22,7 +22,7 @@ import java.util.ArrayList;
  * Created by akshay on 05-07-2016.
  */
 public class GamesFragment extends BaseFragment {
-    private String key="key";
+    private String key = "key";
 
     @Nullable
     @Override
@@ -32,18 +32,18 @@ public class GamesFragment extends BaseFragment {
         getActivity().setTitle(getResources().getString(R.string.str_game_title));
 
         final ArrayList<CategoryDataDTO> data = mDbRepository.getCategoryList(ParentCategory.Games.getValue());
-        GridSubCategoryAdapter adapter = new GridSubCategoryAdapter(data, getActivity().getApplicationContext());
+        final GridSubCategoryAdapter adapter = new GridSubCategoryAdapter(data, getActivity().getApplicationContext());
         gridView.setAdapter(adapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               CategoryDataDTO dataDTO= data.get(position);
+                CategoryDataDTO dataDTO = (CategoryDataDTO) adapter.getItem(position);
                 dataDTO.getCategoryName();
                 dataDTO.getCategoryId();
                /* Toast.makeText(getActivity().getApplicationContext(),"Category Id "+ dataDTO.getCategoryId()+"Category Name "+dataDTO.getCategoryName(),Toast.LENGTH_LONG).show();*/
                 ItemsListFragment itemsListFragment = new ItemsListFragment();
                 Bundle bundle = new Bundle();
-                bundle.putLong(key,dataDTO.getCategoryId());
+                bundle.putLong(key, dataDTO.getCategoryId());
                 itemsListFragment.setArguments(bundle);
                 getFragmentManager().beginTransaction().replace(R.id.fragment_frame_lay, itemsListFragment).commit();
             }

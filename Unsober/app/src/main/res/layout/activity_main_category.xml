@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:text="HANG OVER"
                 android:textColor="@android:color/black"
-                android:textSize="26sp" />
+                android:textSize="23sp" />
 
             <TextView
                 android:layout_width="wrap_content"

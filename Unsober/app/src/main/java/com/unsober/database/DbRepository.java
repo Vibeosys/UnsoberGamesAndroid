@@ -10,13 +10,13 @@ import android.util.Log;
 
 import com.unsober.data.adapterdata.CategoryDataDTO;
 import com.unsober.data.adapterdata.GameListDataDTO;
+import com.unsober.data.adapterdata.ItemDataDTO;
 import com.unsober.data.responsedata.ResponseCategoryDTO;
 import com.unsober.data.responsedata.ResponseItemDTO;
 import com.unsober.utils.DateUtils;
 import com.unsober.utils.SessionManager;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -321,5 +321,48 @@ public class DbRepository extends SQLiteOpenHelper {
         }
 
         return gameListDataDTO;
+    }
+
+
+    public ItemDataDTO getItemDetail(long mItemId) {
+        SQLiteDatabase sqLiteDatabase = null;
+        Cursor cursor = null;
+        ItemDataDTO itemDataDTO = null;
+        try {
+            String[] whereClause = new String[]{String.valueOf(mItemId)};
+            sqLiteDatabase = getReadableDatabase();
+            synchronized (sqLiteDatabase) {
+                cursor = sqLiteDatabase.rawQuery("SELECT * from " + SqlContract.SqlItems.TABLE_NAME + " where "
+                        + SqlContract.SqlItems.STATUS + "=1 AND " + SqlContract.SqlItems.ID + "=?", whereClause);
+                if (cursor != null) {
+                    if (cursor.getCount() > 0) {
+                        cursor.moveToFirst();
+                        String title = cursor.getString(cursor.getColumnIndex(SqlContract.SqlItems.TITLE));
+                        String description = cursor.getString(cursor.getColumnIndex(SqlContract.SqlItems.DESC));
+                        String imageLink = cursor.getString(cursor.getColumnIndex(SqlContract.SqlItems.IMG_LINK));
+                        String youtubeLink = cursor.getString(cursor.getColumnIndex(SqlContract.SqlItems.YOU_LINK));
+                        String tag1 = cursor.getString(cursor.getColumnIndex(SqlContract.SqlItems.TAG1));
+                        String tag2 = cursor.getString(cursor.getColumnIndex(SqlContract.SqlItems.TAG2));
+                        String tag3 = cursor.getString(cursor.getColumnIndex(SqlContract.SqlItems.TAG3));
+                        int categoryId = cursor.getInt(cursor.getColumnIndex(SqlContract.SqlItems.CATEGORY_ID));
+                        int status = cursor.getInt(cursor.getColumnIndex(SqlContract.SqlItems.STATUS));
+                        String mItemDateTime = cursor.getString(cursor.getColumnIndex(SqlContract.SqlItems.DATE_TIME));
+                        long view = cursor.getLong(cursor.getColumnIndex(SqlContract.SqlItems.VIEWS));
+                        int noOfPlayers = cursor.getInt(cursor.getColumnIndex(SqlContract.SqlItems.NO_OF_PLAYERS));
+                        itemDataDTO = new ItemDataDTO(mItemId, title, description, imageLink,
+                                youtubeLink, tag1, tag2, tag3, categoryId, status, mItemDateTime, view, noOfPlayers);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Log.e("getItem", e.toString());
+        } finally {
+            if (cursor != null)
+                cursor.close();
+            if (sqLiteDatabase != null && sqLiteDatabase.isOpen())
+                sqLiteDatabase.close();
+        }
+
+        return itemDataDTO;
     }
 }

@@ -2,26 +2,20 @@ package com.unsober.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.app.Fragment;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.unsober.R;
-import com.unsober.adapter.GridSubCategoryAdapter;
 import com.unsober.adapter.ItemsListAdapter;
 import com.unsober.data.adapterdata.GameListDataDTO;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by akshay on 06-07-2016.
@@ -30,6 +24,7 @@ public class ItemsListFragment extends BaseFragment {
 
     private AdView mAdView;
     private Long mCategoryId;
+    private ItemsListAdapter mAdapter;
 
     public ItemsListFragment() {
     }
@@ -48,15 +43,13 @@ public class ItemsListFragment extends BaseFragment {
         ListView listView = (ListView) view.findViewById(R.id.list_item);
         getActivity().setTitle(getResources().getString(R.string.str_sport_games));
         Bundle bundle = this.getArguments();
-        if(bundle != null) {
+        if (bundle != null) {
             mCategoryId = getArguments().getLong("key");
             ArrayList<GameListDataDTO> gameListDataDTO = mDbRepository.getGameList(mCategoryId);
-            ItemsListAdapter adapter = new ItemsListAdapter(gameListDataDTO, getActivity().getApplicationContext());
-            listView.setAdapter(adapter);
-        }
-        else
-        {
-            Log.e("ItemList","Cannot get category Id");
+            mAdapter = new ItemsListAdapter(gameListDataDTO, getActivity().getApplicationContext());
+            listView.setAdapter(mAdapter);
+        } else {
+            Log.e("ItemList", "Cannot get category Id");
         }
 
 
@@ -71,7 +64,11 @@ public class ItemsListFragment extends BaseFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                GameListDataDTO gameListDataDTO = (GameListDataDTO) mAdapter.getItem(position);
                 GameDetailsFragment gameDetailsFragment = new GameDetailsFragment();
+                Bundle bundle = new Bundle();
+                bundle.putLong("itemId", gameListDataDTO.getItemId());
+                gameDetailsFragment.setArguments(bundle);
                 getFragmentManager().beginTransaction().replace(R.id.fragment_frame_lay, gameDetailsFragment).commit();
             }
         });
