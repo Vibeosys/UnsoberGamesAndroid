@@ -303,8 +303,8 @@ public class DbRepository extends SQLiteOpenHelper {
                             String mImagePath = cursor.getString(cursor.getColumnIndex(SqlContract.SqlItems.IMG_LINK));
                             String mNumberOfPlayers = cursor.getString(cursor.getColumnIndex(SqlContract.SqlItems.NO_OF_PLAYERS));
                             String mGameTitle = cursor.getString(cursor.getColumnIndex(SqlContract.SqlItems.TITLE));
-
-                            GameListDataDTO gameListDataDTOs = new GameListDataDTO(mItemId, mGameTitle, mImagePath, mNumberOfPlayers);
+                            String mGameDescription = cursor.getString(cursor.getColumnIndex(SqlContract.SqlItems.DESC));
+                            GameListDataDTO gameListDataDTOs = new GameListDataDTO(mItemId, mGameTitle, mImagePath, mNumberOfPlayers, mGameDescription);
                             gameListDataDTO.add(gameListDataDTOs);
 
                         } while (cursor.moveToNext());
@@ -365,45 +365,77 @@ public class DbRepository extends SQLiteOpenHelper {
 
         return itemDataDTO;
     }
-    public ArrayList<String> getFirstTag(String columnName)
-    {
+
+    public ArrayList<String> getFirstTag(String columnName) {
         SQLiteDatabase sqLiteDatabase = null;
         Cursor cursor = null;
         ArrayList<String> arrayList = new ArrayList<>();
-        try
-        {
+        try {
             sqLiteDatabase = getReadableDatabase();
-            synchronized (sqLiteDatabase)
-            {
-                cursor = sqLiteDatabase.rawQuery("SELECT DISTINCT LOWER ("+columnName+") AS "+columnName+" FROM "+
-                        SqlContract.SqlItems.TABLE_NAME+ " where "+SqlContract.SqlItems.STATUS+"=1 " ,null);
-                    if(cursor!=null)
-                    {
-                        if(cursor.getCount() >0)
+            synchronized (sqLiteDatabase) {
+                cursor = sqLiteDatabase.rawQuery("SELECT DISTINCT LOWER (" + columnName + ") AS " + columnName + " FROM " +
+                        SqlContract.SqlItems.TABLE_NAME + " where " + SqlContract.SqlItems.STATUS + "=1 ", null);
+                if (cursor != null) {
+                    if (cursor.getCount() > 0) {
+                        cursor.moveToFirst();
                         {
-                            cursor.moveToFirst();
-                            {
-                                do{
-                                    String tag1 = cursor.getString(cursor.getColumnIndex(columnName));
-                                    arrayList.add(tag1);
-                                }while(cursor.moveToNext());
-                            }
+                            do {
+                                String tag1 = cursor.getString(cursor.getColumnIndex(columnName));
+                                arrayList.add(tag1);
+                            } while (cursor.moveToNext());
                         }
-
                     }
+
+                }
 
             }
 
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             Log.e("getTag", e.toString());
-        }
-        finally {
+        } finally {
             if (cursor != null)
                 cursor.close();
             if (sqLiteDatabase != null && sqLiteDatabase.isOpen())
                 sqLiteDatabase.close();
         }
         return arrayList;
+    }
+
+    public ArrayList<GameListDataDTO> getAdvancedSearch(String whereCondition) {
+        SQLiteDatabase sqLiteDatabase = null;
+        Cursor cursor = null;
+        ArrayList<GameListDataDTO> gameListDataDTO = null;
+        try {
+            sqLiteDatabase = getReadableDatabase();
+            synchronized (sqLiteDatabase) {
+                cursor = sqLiteDatabase.rawQuery(" SELECT * FROM " + SqlContract.SqlItems.TABLE_NAME + " " + whereCondition, null);
+                Log.d("TAG", " SELECT * FROM " + SqlContract.SqlItems.TABLE_NAME + whereCondition);
+                gameListDataDTO = new ArrayList<>();
+                if (cursor != null) {
+                    if (cursor.getCount() > 0) {
+                        cursor.moveToFirst();
+                        do {
+                            long mItemId = cursor.getLong(cursor.getColumnIndex(SqlContract.SqlItems.ID));
+                            String mImagePath = cursor.getString(cursor.getColumnIndex(SqlContract.SqlItems.IMG_LINK));
+                            String mNumberOfPlayers = cursor.getString(cursor.getColumnIndex(SqlContract.SqlItems.NO_OF_PLAYERS));
+                            String mGameTitle = cursor.getString(cursor.getColumnIndex(SqlContract.SqlItems.TITLE));
+                            String mGameDescription = cursor.getString(cursor.getColumnIndex(SqlContract.SqlItems.DESC));
+                            GameListDataDTO gameListDataDTOs = new GameListDataDTO(mItemId, mGameTitle, mImagePath, mNumberOfPlayers, mGameDescription);
+                            gameListDataDTO.add(gameListDataDTOs);
+                        } while (cursor.moveToNext());
+                    }
+                }
+            }
+
+
+        } catch (Exception e) {
+            Log.e("AdvanceSearch", e.toString());
+        } finally {
+            if (cursor != null)
+                cursor.close();
+            if (sqLiteDatabase != null && sqLiteDatabase.isOpen())
+                sqLiteDatabase.close();
+        }
+        return gameListDataDTO;
     }
 }

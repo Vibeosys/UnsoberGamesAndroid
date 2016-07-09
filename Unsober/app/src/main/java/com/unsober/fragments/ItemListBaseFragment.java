@@ -37,8 +37,10 @@ public abstract class ItemListBaseFragment extends BaseFragment implements SubCa
             for (GameListDataDTO gameListDataDTO : gameListDataDTOs) {
                 if (gameListDataDTO.getGameTitle().toLowerCase().contains(query.toLowerCase())) {
                     searchedList.add(gameListDataDTO);
-                } else {
+                } else if (gameListDataDTO.getGameDescription().toLowerCase().contains(query.toLowerCase())) {
+                    searchedList.add(gameListDataDTO);
 
+                } else {
                 }
             }
         } else if (query.equals("")) {

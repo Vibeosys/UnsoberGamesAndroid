@@ -8,12 +8,14 @@ public class GameListDataDTO {
     private String mGameTitle;
     private String mImageLink;
     private String mNumberOfPlayers;
+    private String mGameDescription;
 
-    public GameListDataDTO(long mItemId, String mGameTitle, String mImageLink, String mNumberOfPlayers) {
+    public GameListDataDTO(long mItemId, String mGameTitle, String mImageLink, String mNumberOfPlayers,String mGameDescription) {
         this.mItemId = mItemId;
         this.mGameTitle = mGameTitle;
         this.mImageLink = mImageLink;
         this.mNumberOfPlayers = mNumberOfPlayers;
+        this.mGameDescription = mGameDescription;
     }
 
     public long getItemId() {
@@ -46,5 +48,13 @@ public class GameListDataDTO {
 
     public void setNumberOfPlayers(String mNumberOfPlayers) {
         this.mNumberOfPlayers = mNumberOfPlayers;
+    }
+
+    public String getGameDescription() {
+        return mGameDescription;
+    }
+
+    public void setGameDescription(String mGameDescription) {
+        this.mGameDescription = mGameDescription;
     }
 }
