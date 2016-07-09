@@ -81,6 +81,12 @@ public class GridSubCategoryAdapter extends BaseAdapter {
         return row;
     }
 
+    public void refresh(ArrayList<CategoryDataDTO> searchedList) {
+        this.data.clear();
+        this.data.addAll(searchedList);
+        notifyDataSetChanged();
+    }
+
     private class ViewHolder {
         TextView txtCategoryTitle;
         NetworkImageView imgCategory;

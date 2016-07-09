@@ -2,10 +2,10 @@ package com.unsober.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.unsober.R;
@@ -18,17 +18,51 @@ import java.util.ArrayList;
 /**
  * Created by akshay on 05-07-2016.
  */
-public class CocktailsFragment extends BaseFragment {
+public class CocktailsFragment extends GridBaseFragment {
+
+    private String key = "categoryId";
+    private ArrayList<CategoryDataDTO> mData;
+    private GridSubCategoryAdapter mAdapter;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cocktail, container, false);
         GridView gridView = (GridView) view.findViewById(R.id.subCategoryGrid);
         getActivity().setTitle(getResources().getString(R.string.str_title_cocktails));
-        ArrayList<CategoryDataDTO> data = new ArrayList<>();
-        data = mDbRepository.getCategoryList(ParentCategory.Cocktails.getValue());
-        GridSubCategoryAdapter adapter = new GridSubCategoryAdapter(data, getActivity().getApplicationContext());
-        gridView.setAdapter(adapter);
+
+        mData = mDbRepository.getCategoryList(ParentCategory.Cocktails.getValue());
+        mAdapter = new GridSubCategoryAdapter(mData, getActivity().getApplicationContext());
+        gridView.setAdapter(mAdapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                CategoryDataDTO dataDTO = (CategoryDataDTO) mAdapter.getItem(position);
+                dataDTO.getCategoryName();
+                dataDTO.getCategoryId();
+               /* Toast.makeText(getActivity().getApplicationContext(),"Category Id "+ dataDTO.getCategoryId()+"Category Name "+dataDTO.getCategoryName(),Toast.LENGTH_LONG).show();*/
+                ItemsListFragment itemsListFragment = new ItemsListFragment();
+                Bundle bundle = new Bundle();
+                bundle.putLong(key, dataDTO.getCategoryId());
+                itemsListFragment.setArguments(bundle);
+                getFragmentManager().beginTransaction().replace(R.id.fragment_frame_lay, itemsListFragment).commit();
+            }
+        });
         return view;
+    }
+
+    @Override
+    protected ArrayList<CategoryDataDTO> getList() {
+        return mData;
+    }
+
+    @Override
+    protected GridSubCategoryAdapter getAdapter() {
+        return mAdapter;
+    }
+
+    @Override
+    protected int getParentId() {
+        return ParentCategory.Cocktails.getValue();
     }
 }

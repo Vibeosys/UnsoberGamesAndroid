@@ -6,7 +6,7 @@ package com.unsober.data;
 public enum ParentCategory {
 
 
-    Games(1), Cocktails(2);
+    Games(1), Cocktails(2), Cures(3);
     private final int value;
 
     ParentCategory(int value) {

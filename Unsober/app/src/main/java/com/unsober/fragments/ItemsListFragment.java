@@ -44,7 +44,7 @@ public class ItemsListFragment extends BaseFragment {
         getActivity().setTitle(getResources().getString(R.string.str_sport_games));
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            mCategoryId = getArguments().getLong("key");
+            mCategoryId = getArguments().getLong("categoryId");
             ArrayList<GameListDataDTO> gameListDataDTO = mDbRepository.getGameList(mCategoryId);
             mAdapter = new ItemsListAdapter(gameListDataDTO, getActivity().getApplicationContext());
             listView.setAdapter(mAdapter);

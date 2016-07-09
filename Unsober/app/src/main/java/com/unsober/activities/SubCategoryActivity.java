@@ -6,6 +6,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,6 +27,7 @@ public class SubCategoryActivity extends AppCompatActivity implements View.OnCli
     private LinearLayout mGameLay, mCocktailsLay, mCuresLay, mSearchLay, mParentLay;
     private TextView mTxtGames, mTxtCocktails, mTxtCures, mTxtSearch;
     private int selectedId = 0;
+    public static SearchClickListener searchClickListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,7 +134,38 @@ public class SubCategoryActivity extends AppCompatActivity implements View.OnCli
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.game_details_search, menu);
+        SearchView searchView = (SearchView) menu.findItem(R.id.gameDetails_search).getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if (searchClickListener != null)
+                    searchClickListener.OnSearchClickListener(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //searchText = newText;
+                return true;
+            }
+        });
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                if (searchClickListener != null)
+                    searchClickListener.OnSearchClickListener("");
+                return false;
+            }
+        });
         return true;
 
+    }
+
+    public static void setOnSearchClickListener(SearchClickListener listener) {
+        searchClickListener = listener;
+    }
+
+    public interface SearchClickListener {
+        public void OnSearchClickListener(String query);
     }
 }
