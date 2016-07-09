@@ -20,6 +20,22 @@ public class ResponseItemDTO {
     private String datetime;
     private long views;
 
+    public ResponseItemDTO(long id, String title, String description, String image_link, String youtube_link, String number_of_players, String tag1, String tag2, String tag3, long category_id, int status, String datetime, long views) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.image_link = image_link;
+        this.youtube_link = youtube_link;
+        this.number_of_players = number_of_players;
+        this.tag1 = tag1;
+        this.tag2 = tag2;
+        this.tag3 = tag3;
+        this.category_id = category_id;
+        this.status = status;
+        this.datetime = datetime;
+        this.views = views;
+    }
+
     public ResponseItemDTO() {
     }
 

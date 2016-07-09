@@ -365,4 +365,45 @@ public class DbRepository extends SQLiteOpenHelper {
 
         return itemDataDTO;
     }
+    public ArrayList<String> getFirstTag(String columnName)
+    {
+        SQLiteDatabase sqLiteDatabase = null;
+        Cursor cursor = null;
+        ArrayList<String> arrayList = new ArrayList<>();
+        try
+        {
+            sqLiteDatabase = getReadableDatabase();
+            synchronized (sqLiteDatabase)
+            {
+                cursor = sqLiteDatabase.rawQuery("SELECT DISTINCT LOWER ("+columnName+") AS "+columnName+" FROM "+
+                        SqlContract.SqlItems.TABLE_NAME+ " where "+SqlContract.SqlItems.STATUS+"=1 " ,null);
+                    if(cursor!=null)
+                    {
+                        if(cursor.getCount() >0)
+                        {
+                            cursor.moveToFirst();
+                            {
+                                do{
+                                    String tag1 = cursor.getString(cursor.getColumnIndex(columnName));
+                                    arrayList.add(tag1);
+                                }while(cursor.moveToNext());
+                            }
+                        }
+
+                    }
+
+            }
+
+        }catch (Exception e)
+        {
+            Log.e("getTag", e.toString());
+        }
+        finally {
+            if (cursor != null)
+                cursor.close();
+            if (sqLiteDatabase != null && sqLiteDatabase.isOpen())
+                sqLiteDatabase.close();
+        }
+        return arrayList;
+    }
 }
