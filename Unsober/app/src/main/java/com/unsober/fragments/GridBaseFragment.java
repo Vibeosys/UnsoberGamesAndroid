@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.unsober.R;
 import com.unsober.activities.SubCategoryActivity;
 import com.unsober.adapter.GridSubCategoryAdapter;
 import com.unsober.data.adapterdata.CategoryDataDTO;
@@ -69,4 +70,16 @@ public abstract class GridBaseFragment extends BaseFragment implements SubCatego
     protected abstract GridView getGridView();
 
     protected abstract TextView getErrorView();
+
+
+    protected void showNoResult(String categoryName) {
+        if (getList().size() <= 0) {
+            getGridView().setVisibility(View.INVISIBLE);
+            getErrorView().setVisibility(View.VISIBLE);
+            getErrorView().setText(getResources().getString(R.string.str_no_item_found) + " " + categoryName);
+        } else {
+            getGridView().setVisibility(View.VISIBLE);
+            getErrorView().setVisibility(View.GONE);
+        }
+    }
 }

@@ -44,6 +44,7 @@ public class GamesFragment extends GridBaseFragment {
                 callNextFrag(dataDTO);
             }
         });
+        showNoResult("Games");
         return view;
     }
 

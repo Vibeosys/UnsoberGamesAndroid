@@ -45,6 +45,7 @@ public class CuresFragment extends GridBaseFragment {
                 callToNextFrag(dataDTO);
             }
         });
+        showNoResult("Cures");
         return view;
     }
 

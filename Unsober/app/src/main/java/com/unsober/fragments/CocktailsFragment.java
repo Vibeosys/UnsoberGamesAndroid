@@ -46,6 +46,7 @@ public class CocktailsFragment extends GridBaseFragment {
                 callNextFrag(dataDTO);
             }
         });
+        showNoResult("Cocktails");
         return view;
     }
 

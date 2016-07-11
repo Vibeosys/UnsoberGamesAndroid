@@ -45,4 +45,5 @@
     <string name="str_game_title">Browse Games</string>
     <string name="str_search_result">Search Result</string>
     <string name="content_error">No Result Found</string>
+    <string name="str_no_item_found">No categories available in</string>
 </resources>

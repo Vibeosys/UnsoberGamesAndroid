@@ -71,7 +71,7 @@ public class ItemsListFragment extends ItemListBaseFragment {
             }
         });
 
-
+        showNoResult(mDbRepository.getCategoryName(mCategoryId));
         return view;
     }
 

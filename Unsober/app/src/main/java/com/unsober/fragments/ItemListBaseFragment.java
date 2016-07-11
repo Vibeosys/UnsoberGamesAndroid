@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.unsober.R;
 import com.unsober.activities.SubCategoryActivity;
 import com.unsober.adapter.ItemsListAdapter;
 import com.unsober.data.adapterdata.CategoryDataDTO;
@@ -68,4 +69,15 @@ public abstract class ItemListBaseFragment extends BaseFragment implements SubCa
     protected abstract ListView getListView();
 
     protected abstract TextView getErrorView();
+
+    protected void showNoResult(String categoryName) {
+        if (getList().size() <= 0) {
+            getListView().setVisibility(View.INVISIBLE);
+            getErrorView().setVisibility(View.VISIBLE);
+            getErrorView().setText("No " + categoryName + " available");
+        } else {
+            getListView().setVisibility(View.VISIBLE);
+            getErrorView().setVisibility(View.GONE);
+        }
+    }
 }
