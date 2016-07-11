@@ -63,14 +63,19 @@ public class ItemsListFragment extends ItemListBaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 GameListDataDTO gameListDataDTO = (GameListDataDTO) mAdapter.getItem(position);
-                GameDetailsFragment gameDetailsFragment = new GameDetailsFragment();
-                Bundle bundle = new Bundle();
-                bundle.putLong("itemId", gameListDataDTO.getItemId());
-                gameDetailsFragment.setArguments(bundle);
-                getFragmentManager().beginTransaction().replace(R.id.fragment_frame_lay, gameDetailsFragment).commit();
+                callToNextFragment(gameListDataDTO);
             }
         });
         return view;
+    }
+
+    private void callToNextFragment(GameListDataDTO gameListDataDTO) {
+        GameDetailsFragment gameDetailsFragment = new GameDetailsFragment();
+        Bundle bundle = new Bundle();
+        bundle.putLong("itemId", gameListDataDTO.getItemId());
+        gameDetailsFragment.setArguments(bundle);
+        getFragmentManager().beginTransaction().replace(R.id.fragment_frame_lay, gameDetailsFragment).commit();
+        BaseFragment.stackFragment.push(this);
     }
 
     @Override

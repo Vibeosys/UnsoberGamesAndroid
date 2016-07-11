@@ -2,12 +2,10 @@ package com.unsober.activities;
 
 import android.content.res.Configuration;
 import android.os.PersistableBundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
-import android.text.InputType;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.unsober.R;
+import com.unsober.fragments.BaseFragment;
 import com.unsober.fragments.CocktailsFragment;
 import com.unsober.fragments.CuresFragment;
 import com.unsober.fragments.GamesFragment;
@@ -24,10 +23,12 @@ import com.unsober.fragments.SearchFragment;
 
 public class SubCategoryActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static final String TAG = SubCategoryActivity.class.getSimpleName();
     private LinearLayout mGameLay, mCocktailsLay, mCuresLay, mSearchLay, mParentLay;
     private TextView mTxtGames, mTxtCocktails, mTxtCures, mTxtSearch;
     private int selectedId = 0;
     public static SearchClickListener searchClickListener;
+    public static BackPressListener backPress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +73,7 @@ public class SubCategoryActivity extends AppCompatActivity implements View.OnCli
         switch (i) {
             case R.id.gameLay:
                 GamesFragment gamesFragment = new GamesFragment();
+                BaseFragment.stackFragment.clear();
                 getFragmentManager().beginTransaction().replace(R.id.fragment_frame_lay, gamesFragment).commit();
                 mTxtGames.setTextColor(getResources().getColor(R.color.accentText));
                 mTxtCocktails.setTextColor(getResources().getColor(R.color.secondaryText));
@@ -80,6 +82,7 @@ public class SubCategoryActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.cocktailLay:
                 CocktailsFragment cocktailsFragment = new CocktailsFragment();
+                BaseFragment.stackFragment.clear();
                 getFragmentManager().beginTransaction().replace(R.id.fragment_frame_lay, cocktailsFragment).commit();
                 mTxtGames.setTextColor(getResources().getColor(R.color.secondaryText));
                 mTxtCocktails.setTextColor(getResources().getColor(R.color.accentText));
@@ -88,6 +91,7 @@ public class SubCategoryActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.curesLay:
                 CuresFragment curesFragment = new CuresFragment();
+                BaseFragment.stackFragment.clear();
                 getFragmentManager().beginTransaction().replace(R.id.fragment_frame_lay, curesFragment).commit();
                 mTxtGames.setTextColor(getResources().getColor(R.color.secondaryText));
                 mTxtCocktails.setTextColor(getResources().getColor(R.color.secondaryText));
@@ -96,6 +100,7 @@ public class SubCategoryActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.searchLay:
                 SearchFragment searchFragment = new SearchFragment();
+                BaseFragment.stackFragment.clear();
                 getFragmentManager().beginTransaction().replace(R.id.fragment_frame_lay, searchFragment).commit();
                 mTxtGames.setTextColor(getResources().getColor(R.color.secondaryText));
                 mTxtCocktails.setTextColor(getResources().getColor(R.color.secondaryText));
@@ -104,6 +109,7 @@ public class SubCategoryActivity extends AppCompatActivity implements View.OnCli
                 break;
             default:
                 GamesFragment gamesFragmentDefault = new GamesFragment();
+                BaseFragment.stackFragment.clear();
                 getFragmentManager().beginTransaction().replace(R.id.fragment_frame_lay, gamesFragmentDefault).commit();
                 mTxtGames.setTextColor(getResources().getColor(R.color.accentText));
                 mTxtCocktails.setTextColor(getResources().getColor(R.color.secondaryText));
@@ -161,11 +167,41 @@ public class SubCategoryActivity extends AppCompatActivity implements View.OnCli
 
     }
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                //Toast.makeText(getApplicationContext(), "Back button clicked", Toast.LENGTH_SHORT).show();
+                if (this.backPress != null)
+                    backPress.OnBackPress();
+                break;
+        }
+        return true;
+
+    }
+
     public static void setOnSearchClickListener(SearchClickListener listener) {
         searchClickListener = listener;
     }
 
     public interface SearchClickListener {
         public void OnSearchClickListener(String query);
+    }
+
+    public static void setOnBackPress(BackPressListener listener) {
+        backPress = listener;
+    }
+
+    public interface BackPressListener {
+        public void OnBackPress();
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        Log.d(TAG, "## Back Pressed");
+        if (this.backPress != null)
+            backPress.OnBackPress();
     }
 }

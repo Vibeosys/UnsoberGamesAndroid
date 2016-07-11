@@ -5,24 +5,31 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
 import android.view.View;
 
+import com.unsober.R;
+import com.unsober.activities.MainCategoryActivity;
+import com.unsober.activities.SubCategoryActivity;
 import com.unsober.database.DbRepository;
 import com.unsober.utils.ServerSyncManager;
 import com.unsober.utils.SessionManager;
+
+import java.util.Stack;
 
 
 /**
  * Created by akshay on 18-06-2016.
  */
-public class BaseFragment extends Fragment {
+public class BaseFragment extends Fragment implements SubCategoryActivity.BackPressListener {
     protected ServerSyncManager mServerSyncManager = null;
     protected DbRepository mDbRepository = null;
     protected static SessionManager mSessionManager = null;
+    public static Stack<BaseFragment> stackFragment = new Stack<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,6 +38,7 @@ public class BaseFragment extends Fragment {
         Log.d("##", "##" + mSessionManager.getDatabaseDeviceFullPath());
         mServerSyncManager = new ServerSyncManager(getActivity().getApplicationContext(), mSessionManager);
         mDbRepository = new DbRepository(getActivity().getApplicationContext(), mSessionManager);
+        SubCategoryActivity.setOnBackPress(this);
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
@@ -81,5 +89,16 @@ public class BaseFragment extends Fragment {
             }
         });
         builder.show();
+    }
+
+    @Override
+    public void OnBackPress() {
+        if (stackFragment.isEmpty()) {
+            startActivity(new Intent(getActivity().getApplicationContext(), MainCategoryActivity.class));
+        } else {
+            BaseFragment fragment = stackFragment.pop();
+            getFragmentManager().beginTransaction().replace(R.id.fragment_frame_lay, fragment).commit();
+        }
+
     }
 }

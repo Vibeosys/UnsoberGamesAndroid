@@ -38,17 +38,22 @@ public class CocktailsFragment extends GridBaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 CategoryDataDTO dataDTO = (CategoryDataDTO) mAdapter.getItem(position);
-                dataDTO.getCategoryName();
-                dataDTO.getCategoryId();
-               /* Toast.makeText(getActivity().getApplicationContext(),"Category Id "+ dataDTO.getCategoryId()+"Category Name "+dataDTO.getCategoryName(),Toast.LENGTH_LONG).show();*/
-                ItemsListFragment itemsListFragment = new ItemsListFragment();
-                Bundle bundle = new Bundle();
-                bundle.putLong(key, dataDTO.getCategoryId());
-                itemsListFragment.setArguments(bundle);
-                getFragmentManager().beginTransaction().replace(R.id.fragment_frame_lay, itemsListFragment).commit();
+                callNextFrag(dataDTO);
             }
         });
         return view;
+    }
+
+    private void callNextFrag(CategoryDataDTO dataDTO) {
+        dataDTO.getCategoryName();
+        dataDTO.getCategoryId();
+               /* Toast.makeText(getActivity().getApplicationContext(),"Category Id "+ dataDTO.getCategoryId()+"Category Name "+dataDTO.getCategoryName(),Toast.LENGTH_LONG).show();*/
+        ItemsListFragment itemsListFragment = new ItemsListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putLong(key, dataDTO.getCategoryId());
+        itemsListFragment.setArguments(bundle);
+        getFragmentManager().beginTransaction().replace(R.id.fragment_frame_lay, itemsListFragment).commit();
+        BaseFragment.stackFragment.push(this);
     }
 
     @Override
