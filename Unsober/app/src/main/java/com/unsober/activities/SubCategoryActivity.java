@@ -21,7 +21,7 @@ import com.unsober.fragments.CuresFragment;
 import com.unsober.fragments.GamesFragment;
 import com.unsober.fragments.SearchFragment;
 
-public class SubCategoryActivity extends AppCompatActivity implements View.OnClickListener {
+public class SubCategoryActivity extends BaseActivity implements View.OnClickListener {
 
     private static final String TAG = SubCategoryActivity.class.getSimpleName();
     private LinearLayout mGameLay, mCocktailsLay, mCuresLay, mSearchLay, mParentLay;
@@ -56,6 +56,11 @@ public class SubCategoryActivity extends AppCompatActivity implements View.OnCli
         mCuresLay.setOnClickListener(this);
         mSearchLay.setOnClickListener(this);
 
+    }
+
+    @Override
+    protected View getMainView() throws NullPointerException {
+        return null;
     }
 
     @Override

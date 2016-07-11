@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 
 import com.unsober.R;
 
-public class MainCategoryActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainCategoryActivity extends BaseActivity implements View.OnClickListener {
 
     private LinearLayout mLayoutGame, mLayoutCocktails, mLayoutCures;
 
@@ -20,6 +20,9 @@ public class MainCategoryActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_category);
         ActionBar actionBar = getSupportActionBar();
+        if (mSessionManager.getIsAccepted() == 0) {
+            callToDisclaimer();
+        }
         mLayoutGame = (LinearLayout) findViewById(R.id.layoutGame);
         mLayoutCocktails = (LinearLayout) findViewById(R.id.layoutCocktails);
         mLayoutCures = (LinearLayout) findViewById(R.id.layoutCures);
@@ -27,6 +30,19 @@ public class MainCategoryActivity extends AppCompatActivity implements View.OnCl
         mLayoutGame.setOnClickListener(this);
         mLayoutCocktails.setOnClickListener(this);
         mLayoutCures.setOnClickListener(this);
+    }
+
+    private void callToDisclaimer() {
+
+        Intent iDisclaimer = new Intent(getApplicationContext(), DisclaimerActivity.class);
+        iDisclaimer.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(iDisclaimer);
+        finish();
+    }
+
+    @Override
+    protected View getMainView() throws NullPointerException {
+        return null;
     }
 
     @Override

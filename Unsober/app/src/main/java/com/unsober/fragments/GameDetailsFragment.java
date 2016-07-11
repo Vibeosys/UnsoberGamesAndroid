@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 
 
 import android.text.Html;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -13,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
@@ -41,6 +43,8 @@ public class GameDetailsFragment extends BaseFragment implements YouTubePlayer.O
     private ItemDataDTO mItemDataDTO;
     private long mItemId = 0;
     private ImageLoader mImageLoader;
+    private FrameLayout mFrameLayout;
+    private String mYoutubeLink;
 
     @Nullable
     @Override
@@ -102,9 +106,14 @@ public class GameDetailsFragment extends BaseFragment implements YouTubePlayer.O
         } else {
             mImgGame.setImageResource(R.drawable.cooler);
         }
+        mYoutubeLink = mItemDataDTO.getItemYoutubeLink();
+        if (TextUtils.isEmpty(mYoutubeLink) || mYoutubeLink == null || mYoutubeLink.equals("")) {
 
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.add(R.id.youtube_fragment, youTubePlayerFragment).commit();
+        } else {
+            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+            transaction.add(R.id.youtube_fragment, youTubePlayerFragment).commit();
+        }
+
     }
 
     @Override
@@ -145,7 +154,7 @@ public class GameDetailsFragment extends BaseFragment implements YouTubePlayer.O
         youTubePlayer.setFullscreen(false);
         youTubePlayer.setShowFullscreenButton(false);
         if (!wasRestored) {
-            youTubePlayer.cueVideo(getCode(mItemDataDTO.getItemYoutubeLink()));
+            youTubePlayer.cueVideo(getCode(mYoutubeLink));
         }
     }
 

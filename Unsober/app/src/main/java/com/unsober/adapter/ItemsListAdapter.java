@@ -67,12 +67,10 @@ public class ItemsListAdapter extends BaseAdapter {
 
         viewHolder.gameTitle.setText(gameList.getGameTitle());
         String noPlayers = gameList.getNumberOfPlayers();
-        /*if(noPlayers == null || noPlayers.isEmpty())
-        {
+        if (noPlayers == null || noPlayers.isEmpty()) {
             viewHolder.NumberOfPlayers.setText("");
-        }
-        else*/
-        viewHolder.NumberOfPlayers.setText("Minimum of " + gameList.getNumberOfPlayers() + " Players");
+        } else
+            viewHolder.NumberOfPlayers.setText("Minimum of " + gameList.getNumberOfPlayers() + " Players");
 
         viewHolder.gameImage.setImageResource(R.drawable.ic_icon);
         mImageLoader = CustomVolleyRequestQueue.getInstance(mContext)

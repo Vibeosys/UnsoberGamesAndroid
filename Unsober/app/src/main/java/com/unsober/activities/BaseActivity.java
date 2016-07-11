@@ -113,25 +113,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         View view = new View(getApplicationContext());
-        if (!NetworkUtils.isActiveNetworkAvailable(getApplicationContext())) {
-            try {
-                view = getMainView();
-                Snackbar snackbar = Snackbar
-                        .make(view, "No internet connection!", Snackbar.LENGTH_INDEFINITE)
-                        .setAction("Setting", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                startActivityForResult(new Intent(Settings.ACTION_SETTINGS), 0);
-                            }
-                        });
-// Changing message text color
-                snackbar.setActionTextColor(Color.RED);
-                snackbar.show();
-            } catch (NullPointerException e) {
-                Log.e(TAG, " Error at base activity null view" + e.toString());
-            }
-
-        }
     }
 
     protected boolean isMyServiceRunning(Class<?> serviceClass) {

@@ -78,4 +78,18 @@ public class SessionManager {
     public String getItemUrl() {
         return mProjectSharedPref.getString(PropertyTypeConstants.GET_ITEMS_URL, null);
     }
+
+    public int getIsAccepted() {
+        return mProjectSharedPref.getInt(PropertyTypeConstants.IS_TERMS_ACCEPTED, 0);
+    }
+
+    public void setIsAccepted(int isAccepted) {
+        setValuesInSharedPrefs(PropertyTypeConstants.IS_TERMS_ACCEPTED, isAccepted);
+    }
+
+    private static void setValuesInSharedPrefs(String sharedPrefKey, int sharedPrefValue) {
+        SharedPreferences.Editor editor = mProjectSharedPref.edit();
+        editor.putInt(sharedPrefKey, sharedPrefValue);
+        editor.apply();
+    }
 }

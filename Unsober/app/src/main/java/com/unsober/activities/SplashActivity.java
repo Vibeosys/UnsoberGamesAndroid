@@ -4,13 +4,14 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.unsober.MainActivity;
 import com.unsober.R;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseActivity {
     private static int SPLASH_TIME_OUT = 3000;
 
     @Override
@@ -34,12 +35,17 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 // This method will be executed once the timer is over
                 // Start your app main activity
-                Intent mainRun = new Intent(SplashActivity.this, DisclaimerActivity.class);
+                Intent mainRun = new Intent(SplashActivity.this, MainCategoryActivity.class);
                 startActivity(mainRun);
 
                 // close this activity
                 finish();
             }
         }, SPLASH_TIME_OUT);
+    }
+
+    @Override
+    protected View getMainView() throws NullPointerException {
+        return null;
     }
 }

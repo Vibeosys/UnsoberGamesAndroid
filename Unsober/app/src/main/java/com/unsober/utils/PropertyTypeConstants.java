@@ -13,4 +13,6 @@ public class PropertyTypeConstants {
     public static final String GET_CATEGORY_URL = "api.endpoint.getcategories";
     public static final String GET_ITEMS_URL = "api.endpoint.getitems";
 
+
+    public static final String IS_TERMS_ACCEPTED = "user.isAccepted";
 }

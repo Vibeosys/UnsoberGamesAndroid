@@ -19,7 +19,7 @@ public class DisclaimerActivity extends BaseActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         syncCategoryIntent = new Intent(Intent.ACTION_SYNC, null, this, CategorySyncService.class);
-        Intent syncItemIntent = new Intent(Intent.ACTION_SYNC,null,this, ItemSynService.class);
+        Intent syncItemIntent = new Intent(Intent.ACTION_SYNC, null, this, ItemSynService.class);
         startService(syncItemIntent);
         setContentView(R.layout.activity_disclaimer);
         getSupportActionBar().hide();
@@ -38,6 +38,7 @@ public class DisclaimerActivity extends BaseActivity implements View.OnClickList
         int id = v.getId();
         switch (id) {
             case R.id.txtAccept:
+                mSessionManager.setIsAccepted(1);
                 startActivity(new Intent(getApplicationContext(), MainCategoryActivity.class));
                 finish();
                 break;
