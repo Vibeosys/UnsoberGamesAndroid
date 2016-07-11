@@ -45,17 +45,25 @@ public class MainCategoryActivity extends AppCompatActivity implements View.OnCl
                 Intent gameIntent = new Intent(getApplicationContext(), SubCategoryActivity.class);
                 gameIntent.putExtra("TabId", R.id.gameLay);
                 startActivity(gameIntent);
+                finish();
                 break;
             case R.id.layoutCocktails:
                 Intent cocktailIntent = new Intent(getApplicationContext(), SubCategoryActivity.class);
                 cocktailIntent.putExtra("TabId", R.id.cocktailLay);
                 startActivity(cocktailIntent);
+                finish();
                 break;
             case R.id.layoutCures:
                 Intent curesIntent = new Intent(getApplicationContext(), SubCategoryActivity.class);
                 curesIntent.putExtra("TabId", R.id.curesLay);
                 startActivity(curesIntent);
+                finish();
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

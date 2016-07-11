@@ -39,13 +39,14 @@ public class ItemsListFragment extends ItemListBaseFragment {
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
 
         ListView listView = (ListView) view.findViewById(R.id.list_item);
-        getActivity().setTitle(getResources().getString(R.string.str_sport_games));
+
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             mCategoryId = getArguments().getLong("categoryId");
             mGameListDataDTO = mDbRepository.getGameList(mCategoryId);
             mAdapter = new ItemsListAdapter(mGameListDataDTO, getActivity().getApplicationContext());
             listView.setAdapter(mAdapter);
+            getActivity().setTitle(mDbRepository.getCategoryName(mCategoryId));
         } else {
             Log.e("ItemList", "Cannot get category Id");
         }
@@ -66,6 +67,8 @@ public class ItemsListFragment extends ItemListBaseFragment {
                 callToNextFragment(gameListDataDTO);
             }
         });
+
+
         return view;
     }
 

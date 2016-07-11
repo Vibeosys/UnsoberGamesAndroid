@@ -199,9 +199,14 @@ public class SubCategoryActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
         Log.d(TAG, "## Back Pressed");
         if (this.backPress != null)
             backPress.OnBackPress();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        BaseFragment.stackFragment.clear();
     }
 }

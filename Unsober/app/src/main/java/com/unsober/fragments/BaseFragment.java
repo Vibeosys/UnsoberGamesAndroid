@@ -95,10 +95,17 @@ public class BaseFragment extends Fragment implements SubCategoryActivity.BackPr
     public void OnBackPress() {
         if (stackFragment.isEmpty()) {
             startActivity(new Intent(getActivity().getApplicationContext(), MainCategoryActivity.class));
+            getActivity().finish();
         } else {
             BaseFragment fragment = stackFragment.pop();
             getFragmentManager().beginTransaction().replace(R.id.fragment_frame_lay, fragment).commit();
         }
 
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 }
+

@@ -251,7 +251,7 @@ public class DbRepository extends SQLiteOpenHelper {
             sqLiteDatabase = getReadableDatabase();
             synchronized (sqLiteDatabase) {
                 cursor = sqLiteDatabase.rawQuery("SELECT * From " + SqlContract.SqlCategories.TABLE_NAME + " where " +
-                        SqlContract.SqlCategories.STATUS + "=1 AND " + SqlContract.SqlCategories.PARENT_ID + "=?"+" ORDER BY "+SqlContract.SqlCategories.NAME +" ASC ", whereClause);
+                        SqlContract.SqlCategories.STATUS + "=1 AND " + SqlContract.SqlCategories.PARENT_ID + "=?" + " ORDER BY " + SqlContract.SqlCategories.NAME + " ASC ", whereClause);
                 categoryDTOs = new ArrayList<>();
                 if (cursor != null) {
                     if (cursor.getCount() > 0) {
@@ -293,7 +293,7 @@ public class DbRepository extends SQLiteOpenHelper {
             sqLiteDatabase = getReadableDatabase();
             synchronized (sqLiteDatabase) {
                 cursor = sqLiteDatabase.rawQuery("SELECT * from " + SqlContract.SqlItems.TABLE_NAME + " where "
-                        + SqlContract.SqlItems.STATUS + "=1 AND " + SqlContract.SqlItems.CATEGORY_ID + "=?"+" ORDER BY "+SqlContract.SqlItems.TITLE +" ASC ", whereClause);
+                        + SqlContract.SqlItems.STATUS + "=1 AND " + SqlContract.SqlItems.CATEGORY_ID + "=?" + " ORDER BY " + SqlContract.SqlItems.TITLE + " ASC ", whereClause);
                 gameListDataDTO = new ArrayList<>();
                 if (cursor != null) {
                     if (cursor.getCount() > 0) {
@@ -437,5 +437,34 @@ public class DbRepository extends SQLiteOpenHelper {
                 sqLiteDatabase.close();
         }
         return gameListDataDTO;
+    }
+
+    public String getCategoryName(long mCategoryId) {
+        SQLiteDatabase sqLiteDatabase = null;
+        Cursor cursor = null;
+        String categoryName = null;
+        try {
+            String[] whereClause = new String[]{String.valueOf(mCategoryId)};
+            sqLiteDatabase = getReadableDatabase();
+            synchronized (sqLiteDatabase) {
+                cursor = sqLiteDatabase.rawQuery("SELECT " + SqlContract.SqlCategories.NAME + " from "
+                        + SqlContract.SqlCategories.TABLE_NAME + " where " + SqlContract.SqlCategories.ID + "=?", whereClause);
+                if (cursor != null) {
+                    if (cursor.getCount() > 0) {
+                        cursor.moveToFirst();
+                        categoryName = cursor.getString(cursor.getColumnIndex(SqlContract.SqlCategories.NAME));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Category Name" + e.toString());
+        } finally {
+            if (cursor != null)
+                cursor.close();
+            if (sqLiteDatabase != null && sqLiteDatabase.isOpen())
+                sqLiteDatabase.close();
+        }
+
+        return categoryName;
     }
 }

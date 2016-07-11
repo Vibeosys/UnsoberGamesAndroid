@@ -70,6 +70,7 @@ public class GameDetailsFragment extends BaseFragment implements YouTubePlayer.O
 
     private void setUpUI() {
         mItemDataDTO = mDbRepository.getItemDetail(mItemId);
+        getActivity().setTitle(mItemDataDTO.getItemTitle());
         YouTubePlayerFragment youTubePlayerFragment = YouTubePlayerFragment.newInstance();
         youTubePlayerFragment.initialize(AppConstants.YOUTUBE_AUTH_KEY, this);
 
