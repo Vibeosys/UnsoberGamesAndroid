@@ -1,6 +1,7 @@
 package com.unsober.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,7 +66,14 @@ public class ItemsListAdapter extends BaseAdapter {
         GameListDataDTO gameList = gameListDataDTO.get(position);
 
         viewHolder.gameTitle.setText(gameList.getGameTitle());
+        String noPlayers = gameList.getNumberOfPlayers();
+        /*if(noPlayers == null || noPlayers.isEmpty())
+        {
+            viewHolder.NumberOfPlayers.setText("");
+        }
+        else*/
         viewHolder.NumberOfPlayers.setText("Minimum of " + gameList.getNumberOfPlayers() + " Players");
+
         viewHolder.gameImage.setImageResource(R.drawable.ic_icon);
         mImageLoader = CustomVolleyRequestQueue.getInstance(mContext)
                 .getImageLoader();
