@@ -3,6 +3,9 @@ package com.unsober.fragments;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.unsober.activities.SubCategoryActivity;
 import com.unsober.adapter.ItemsListAdapter;
@@ -46,7 +49,14 @@ public abstract class ItemListBaseFragment extends BaseFragment implements SubCa
         } else if (query.equals("")) {
             searchedList = mDbRepository.getGameList(getCategoryId());
         }
-        getAdapter().refresh(searchedList);
+        if (searchedList.size() <= 0) {
+            getListView().setVisibility(View.INVISIBLE);
+            getErrorView().setVisibility(View.VISIBLE);
+        } else {
+            getListView().setVisibility(View.VISIBLE);
+            getErrorView().setVisibility(View.GONE);
+            getAdapter().refresh(searchedList);
+        }
     }
 
     protected abstract ArrayList<GameListDataDTO> getList();
@@ -54,4 +64,8 @@ public abstract class ItemListBaseFragment extends BaseFragment implements SubCa
     protected abstract ItemsListAdapter getAdapter();
 
     protected abstract long getCategoryId();
+
+    protected abstract ListView getListView();
+
+    protected abstract TextView getErrorView();
 }

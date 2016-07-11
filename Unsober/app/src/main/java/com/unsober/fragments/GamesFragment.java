@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.unsober.R;
 import com.unsober.adapter.GridSubCategoryAdapter;
@@ -22,12 +23,15 @@ public class GamesFragment extends GridBaseFragment {
     private String key = "categoryId";
     private ArrayList<CategoryDataDTO> mData;
     private GridSubCategoryAdapter mAdapter;
+    private GridView gridView;
+    private TextView mTxtSearchError;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_game, container, false);
-        GridView gridView = (GridView) view.findViewById(R.id.subCategoryGrid);
+        gridView = (GridView) view.findViewById(R.id.subCategoryGrid);
+        mTxtSearchError = (TextView) view.findViewById(R.id.txtSearchError);
         getActivity().setTitle(getResources().getString(R.string.str_game_title));
 
         mData = mDbRepository.getCategoryList(ParentCategory.Games.getValue());
@@ -68,5 +72,15 @@ public class GamesFragment extends GridBaseFragment {
     @Override
     protected int getParentId() {
         return ParentCategory.Games.getValue();
+    }
+
+    @Override
+    protected GridView getGridView() {
+        return gridView;
+    }
+
+    @Override
+    protected TextView getErrorView() {
+        return mTxtSearchError;
     }
 }

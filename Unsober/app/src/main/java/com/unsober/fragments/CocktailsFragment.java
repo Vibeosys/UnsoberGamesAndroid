@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.unsober.R;
 import com.unsober.adapter.GridSubCategoryAdapter;
@@ -23,18 +25,21 @@ public class CocktailsFragment extends GridBaseFragment {
     private String key = "categoryId";
     private ArrayList<CategoryDataDTO> mData;
     private GridSubCategoryAdapter mAdapter;
+    private TextView mTxtSearchError;
+    private GridView mGridView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cocktail, container, false);
-        GridView gridView = (GridView) view.findViewById(R.id.subCategoryGrid);
+        mGridView = (GridView) view.findViewById(R.id.subCategoryGrid);
+        mTxtSearchError = (TextView) view.findViewById(R.id.txtSearchError);
         getActivity().setTitle(getResources().getString(R.string.str_title_cocktails));
 
         mData = mDbRepository.getCategoryList(ParentCategory.Cocktails.getValue());
         mAdapter = new GridSubCategoryAdapter(mData, getActivity().getApplicationContext());
-        gridView.setAdapter(mAdapter);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mGridView.setAdapter(mAdapter);
+        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 CategoryDataDTO dataDTO = (CategoryDataDTO) mAdapter.getItem(position);
@@ -69,5 +74,15 @@ public class CocktailsFragment extends GridBaseFragment {
     @Override
     protected int getParentId() {
         return ParentCategory.Cocktails.getValue();
+    }
+
+    @Override
+    protected GridView getGridView() {
+        return mGridView;
+    }
+
+    @Override
+    protected TextView getErrorView() {
+        return mTxtSearchError;
     }
 }

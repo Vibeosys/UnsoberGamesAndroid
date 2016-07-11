@@ -138,14 +138,19 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
                 } else {
                     mWhereClause = "where " + mTag1 + " OR " + mTag2 + " OR " + mTag3;
                 }
-                Bundle bundle = new Bundle();
-                bundle.putString(KeyBundle, mWhereClause);
-
-                AdvancedSearchFragment advancedSearchFragment = new AdvancedSearchFragment();
-                advancedSearchFragment.setArguments(bundle);
-                /*ItemsListFragment itemsListFragment = new ItemsListFragment();*/
-                getFragmentManager().beginTransaction().replace(R.id.fragment_frame_lay, advancedSearchFragment).commit();
+                callToNextFragment();
                 break;
         }
+    }
+
+    private void callToNextFragment() {
+        Bundle bundle = new Bundle();
+        bundle.putString(KeyBundle, mWhereClause);
+
+        AdvancedSearchFragment advancedSearchFragment = new AdvancedSearchFragment();
+        advancedSearchFragment.setArguments(bundle);
+                /*ItemsListFragment itemsListFragment = new ItemsListFragment();*/
+        getFragmentManager().beginTransaction().replace(R.id.fragment_frame_lay, advancedSearchFragment).commit();
+        BaseFragment.stackFragment.push(this);
     }
 }

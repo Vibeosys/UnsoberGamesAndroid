@@ -28,7 +28,7 @@
         </string>
     <string name="no_players_game_details">Minimum of 3 Players</string>
     <string name="game_details">Search Game</string>
-    <string name="search_item">ENTER SEARCH ITEM</string>
+    <string name="search_item">Enter Search Terms</string>
     <string name="search_item_tag_first">TAG #1</string>
     <string name="search_item_tag_second">TAG #2</string>
     <string name="search_item_tag_third">TAG #3</string>
@@ -41,6 +41,8 @@
     <string name="str_title_cocktails">Browse Cocktails</string>
     <string name="game_details_views">4 Views </string>
     <string name="str_sport_games">Sport Games</string>
-    <string name="str_cures_title">Browes Cures</string>
-    <string name="str_game_title">Browes Games</string>
+    <string name="str_cures_title">Browse Cures</string>
+    <string name="str_game_title">Browse Games</string>
+    <string name="str_search_result">Search Result</string>
+    <string name="content_error">No Result Found</string>
 </resources>

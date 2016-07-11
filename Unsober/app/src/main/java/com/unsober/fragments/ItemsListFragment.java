@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -26,6 +27,8 @@ public class ItemsListFragment extends ItemListBaseFragment {
     private long mCategoryId;
     private ItemsListAdapter mAdapter;
     private ArrayList<GameListDataDTO> mGameListDataDTO;
+    private TextView mTxtSearchError;
+    private ListView mListView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,14 +41,14 @@ public class ItemsListFragment extends ItemListBaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
 
-        ListView listView = (ListView) view.findViewById(R.id.list_item);
-
+        mListView = (ListView) view.findViewById(R.id.list_item);
+        mTxtSearchError = (TextView) view.findViewById(R.id.txtSearchError);
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             mCategoryId = getArguments().getLong("categoryId");
             mGameListDataDTO = mDbRepository.getGameList(mCategoryId);
             mAdapter = new ItemsListAdapter(mGameListDataDTO, getActivity().getApplicationContext());
-            listView.setAdapter(mAdapter);
+            mListView.setAdapter(mAdapter);
             getActivity().setTitle(mDbRepository.getCategoryName(mCategoryId));
         } else {
             Log.e("ItemList", "Cannot get category Id");
@@ -60,7 +63,7 @@ public class ItemsListFragment extends ItemListBaseFragment {
                 .build();
         mAdView.loadAd(adRequest);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 GameListDataDTO gameListDataDTO = (GameListDataDTO) mAdapter.getItem(position);
@@ -118,5 +121,15 @@ public class ItemsListFragment extends ItemListBaseFragment {
     @Override
     protected long getCategoryId() {
         return mCategoryId;
+    }
+
+    @Override
+    protected ListView getListView() {
+        return mListView;
+    }
+
+    @Override
+    protected TextView getErrorView() {
+        return mTxtSearchError;
     }
 }

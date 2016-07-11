@@ -3,6 +3,9 @@ package com.unsober.fragments;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.widget.GridView;
+import android.widget.TextView;
 
 import com.unsober.activities.SubCategoryActivity;
 import com.unsober.adapter.GridSubCategoryAdapter;
@@ -45,7 +48,15 @@ public abstract class GridBaseFragment extends BaseFragment implements SubCatego
         } else if (query.equals("")) {
             searchedList = mDbRepository.getCategoryList(getParentId());
         }
-        getAdapter().refresh(searchedList);
+        if (searchedList.size() <= 0) {
+            getGridView().setVisibility(View.INVISIBLE);
+            getErrorView().setVisibility(View.VISIBLE);
+        } else {
+            getGridView().setVisibility(View.VISIBLE);
+            getErrorView().setVisibility(View.GONE);
+            getAdapter().refresh(searchedList);
+        }
+
     }
 
 
@@ -54,4 +65,8 @@ public abstract class GridBaseFragment extends BaseFragment implements SubCatego
     protected abstract GridSubCategoryAdapter getAdapter();
 
     protected abstract int getParentId();
+
+    protected abstract GridView getGridView();
+
+    protected abstract TextView getErrorView();
 }

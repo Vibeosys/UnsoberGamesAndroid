@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -26,6 +27,7 @@ public class AdvancedSearchFragment extends ItemListBaseFragment {
     private String mWhereClause;
     private ItemsListAdapter mAdapter;
     private ArrayList<GameListDataDTO> mGameListDataDTO;
+    private TextView mTxtSearchError;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,7 +40,8 @@ public class AdvancedSearchFragment extends ItemListBaseFragment {
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
 
         mListView = (ListView) view.findViewById(R.id.list_item);
-        getActivity().setTitle(getResources().getString(R.string.str_sport_games));
+        mTxtSearchError = (TextView) view.findViewById(R.id.txtSearchError);
+        getActivity().setTitle(getResources().getString(R.string.str_search_result));
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             mWhereClause = getArguments().getString("BundleKey");
@@ -62,14 +65,19 @@ public class AdvancedSearchFragment extends ItemListBaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 GameListDataDTO gameListDataDTO = (GameListDataDTO) mAdapter.getItem(position);
-                GameDetailsFragment gameDetailsFragment = new GameDetailsFragment();
-                Bundle bundle = new Bundle();
-                bundle.putLong("itemId", gameListDataDTO.getItemId());
-                gameDetailsFragment.setArguments(bundle);
-                getFragmentManager().beginTransaction().replace(R.id.fragment_frame_lay, gameDetailsFragment).commit();
+                callToNext(gameListDataDTO);
             }
         });
         return view;
+    }
+
+    private void callToNext(GameListDataDTO gameListDataDTO) {
+        GameDetailsFragment gameDetailsFragment = new GameDetailsFragment();
+        Bundle bundle = new Bundle();
+        bundle.putLong("itemId", gameListDataDTO.getItemId());
+        gameDetailsFragment.setArguments(bundle);
+        getFragmentManager().beginTransaction().replace(R.id.fragment_frame_lay, gameDetailsFragment).commit();
+        BaseFragment.stackFragment.push(this);
     }
 
     @Override
@@ -110,4 +118,15 @@ public class AdvancedSearchFragment extends ItemListBaseFragment {
     protected long getCategoryId() {
         return 0;
     }
+
+    @Override
+    protected ListView getListView() {
+        return mListView;
+    }
+
+    @Override
+    protected TextView getErrorView() {
+        return mTxtSearchError;
+    }
+
 }

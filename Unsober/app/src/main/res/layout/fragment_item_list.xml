@@ -5,6 +5,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/txtSearchError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@color/gridBorder"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="@string/content_error"
+        android:textColor="@color/primaryText"
+        android:textSize="14dp"
+        android:visibility="gone" />
+
     <ListView
         android:id="@+id/list_item"
         android:layout_width="match_parent"
