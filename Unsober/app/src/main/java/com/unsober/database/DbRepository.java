@@ -251,7 +251,7 @@ public class DbRepository extends SQLiteOpenHelper {
             sqLiteDatabase = getReadableDatabase();
             synchronized (sqLiteDatabase) {
                 cursor = sqLiteDatabase.rawQuery("SELECT * From " + SqlContract.SqlCategories.TABLE_NAME + " where " +
-                        SqlContract.SqlCategories.STATUS + "=1 AND " + SqlContract.SqlCategories.PARENT_ID + "=?", whereClause);
+                        SqlContract.SqlCategories.STATUS + "=1 AND " + SqlContract.SqlCategories.PARENT_ID + "=?"+" ORDER BY "+SqlContract.SqlCategories.NAME +" ASC ", whereClause);
                 categoryDTOs = new ArrayList<>();
                 if (cursor != null) {
                     if (cursor.getCount() > 0) {
@@ -293,7 +293,7 @@ public class DbRepository extends SQLiteOpenHelper {
             sqLiteDatabase = getReadableDatabase();
             synchronized (sqLiteDatabase) {
                 cursor = sqLiteDatabase.rawQuery("SELECT * from " + SqlContract.SqlItems.TABLE_NAME + " where "
-                        + SqlContract.SqlItems.STATUS + "=1 AND " + SqlContract.SqlItems.CATEGORY_ID + "=?", whereClause);
+                        + SqlContract.SqlItems.STATUS + "=1 AND " + SqlContract.SqlItems.CATEGORY_ID + "=?"+" ORDER BY "+SqlContract.SqlItems.TITLE +" ASC ", whereClause);
                 gameListDataDTO = new ArrayList<>();
                 if (cursor != null) {
                     if (cursor.getCount() > 0) {

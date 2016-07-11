@@ -19,7 +19,8 @@
             android:id="@+id/gameImageView"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:layout_margin="2dp"
+            android:layout_margin="4dp"
+            android:padding="6dp"
            android:src="@drawable/ic_icon" />
 
         <LinearLayout
@@ -48,14 +49,15 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="1dp"
-                    android:src="@drawable/ic_person_black_24dp" />
+                    android:padding="2dp"
+                    android:src="@drawable/ic_person_black_18dp" />
 
                 <TextView
                     android:id="@+id/gameNumberOfPlayers"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Minimum of 3 Players"
+                    android:padding="2dp"
                     android:textColor="@color/secondaryText"
                     android:textSize="14sp" />
             </LinearLayout>
