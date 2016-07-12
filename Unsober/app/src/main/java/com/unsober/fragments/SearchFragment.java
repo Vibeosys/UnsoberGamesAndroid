@@ -57,6 +57,7 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
         ResponseItemDTO obj6 = new ResponseItemDTO(35,"Test Title","Test Description","test.png","","4","jin","rum","shot",12,1,"12 12 12",10);
         ResponseItemDTO obj7 = new ResponseItemDTO(36,"Test Title","Test Description","test.png","","4","wine","rum","shot",12,1,"12 12 12",10);
         ResponseItemDTO obj8 = new ResponseItemDTO(37,"Search","Test Description","test.png","","4","milk","butter","Paneer",12,1,"12 12 12",10);
+        ResponseItemDTO obj9 = new ResponseItemDTO(38,"gggg","Test Description","test.png","","4","sprite","coca","pepsie",12,1,"12 12 12",10);
         List<ResponseItemDTO> responseItemDTOs = new ArrayList<>();
         responseItemDTOs.add(obj1);
         responseItemDTOs.add(obj2);
@@ -66,7 +67,8 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
         responseItemDTOs.add(obj6);
         responseItemDTOs.add(obj7);
         responseItemDTOs.add(obj8);
-        mDbRepository.insertItems(responseItemDTOs);*/ // Search Test Data
+        responseItemDTOs.add(obj9);
+        mDbRepository.insertItems(responseItemDTOs); // Search Test Data*/
 
         ArrayList<String> getTag1 = mDbRepository.getFirstTag(SqlContract.SqlItems.TAG1);
         ArrayList<String> getTag2 = mDbRepository.getFirstTag(SqlContract.SqlItems.TAG2);
