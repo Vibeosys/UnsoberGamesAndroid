@@ -63,6 +63,7 @@ public class GameDetailsFragment extends BaseFragment implements YouTubePlayer.O
             Bundle bundle = this.getArguments();
             if (bundle != null) {
                 mItemId = getArguments().getLong("itemId");
+
             } else {
                 Log.e(TAG, "## Error to get the item no");
             }

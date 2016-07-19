@@ -69,13 +69,13 @@ public class GridSubCategoryAdapter extends BaseAdapter {
         if (url != null && !url.isEmpty()) {
             try {
                 mImageLoader.get(url, ImageLoader.getImageListener(viewHolder.imgCategory,
-                        R.drawable.cooler, R.drawable.cooler));
+                        R.drawable.loading_img, R.drawable.default_img));
                 viewHolder.imgCategory.setImageUrl(url, mImageLoader);
             } catch (Exception e) {
-                viewHolder.imgCategory.setImageResource(R.drawable.cooler);
+                viewHolder.imgCategory.setImageResource(R.drawable.default_img);
             }
         } else {
-            viewHolder.imgCategory.setImageResource(R.drawable.cooler);
+            viewHolder.imgCategory.setImageResource(R.drawable.default_img);
         }
         Log.d("NewsAdapter", "## Category " + categoryDataDTO.getCategoryName());
         return row;

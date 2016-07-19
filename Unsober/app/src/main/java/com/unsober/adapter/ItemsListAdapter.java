@@ -79,13 +79,13 @@ public class ItemsListAdapter extends BaseAdapter {
         if (url != null && !url.isEmpty()) {
             try {
                 mImageLoader.get(url, ImageLoader.getImageListener(viewHolder.gameImage,
-                        R.drawable.ic_icon, R.drawable.ic_icon));
+                        R.drawable.loading_img, R.drawable.default_img));
                 viewHolder.gameImage.setImageUrl(url, mImageLoader);
             } catch (Exception e) {
-                viewHolder.gameImage.setImageResource(R.drawable.ic_icon);
+                viewHolder.gameImage.setImageResource(R.drawable.default_img);
             }
         } else {
-            viewHolder.gameImage.setImageResource(R.drawable.ic_icon);
+            viewHolder.gameImage.setImageResource(R.drawable.default_img);
         }
         return row;
     }

@@ -472,4 +472,72 @@ public class DbRepository extends SQLiteOpenHelper {
 
         return categoryName;
     }
+
+    public boolean updateViews(long itemId) {
+        boolean flagError = false;
+        String errorMessage = "";
+        SQLiteDatabase sqLiteDatabase = null;
+        Cursor cursor = null;
+
+        DateUtils dateUtils = new DateUtils();
+        long count = 0;
+        int rowCount = 0;
+        String[] whereClause = new String[]{String.valueOf(itemId)};
+        try {
+            sqLiteDatabase = getReadableDatabase();
+            synchronized (sqLiteDatabase) {
+                cursor = sqLiteDatabase.rawQuery("Select " + SqlContract.SqlItems.VIEWS + " From " + SqlContract.SqlItems.TABLE_NAME
+                        + " Where " + SqlContract.SqlItems.ID + "=?", whereClause);
+                if (cursor != null) {
+                    if (cursor.getCount() > 0) {
+                        cursor.moveToFirst();
+                        count = cursor.getLong(cursor.getColumnIndex(SqlContract.SqlItems.VIEWS));
+                    }
+                }
+                cursor.close();
+                sqLiteDatabase.close();
+                flagError = true;
+            }
+        } catch (Exception e) {
+            flagError = false;
+            errorMessage = e.getMessage();
+            Log.e(TAG, "##Selecting view and inserting " + e.toString());
+        } finally {
+            if (sqLiteDatabase != null && sqLiteDatabase.isOpen())
+                sqLiteDatabase.close();
+            if (!flagError)
+                Log.e(TAG, "##Selecting view" + errorMessage);
+        }
+        try {
+            sqLiteDatabase = getWritableDatabase();
+            synchronized (sqLiteDatabase) {
+                ContentValues contentValues = null;
+                contentValues = new ContentValues();
+                contentValues.put(SqlContract.SqlItems.VIEWS, count + 1);
+                if (!sqLiteDatabase.isOpen())
+                    sqLiteDatabase = getWritableDatabase();
+
+                rowCount = sqLiteDatabase.update(SqlContract.SqlItems.TABLE_NAME, contentValues,
+                        SqlContract.SqlItems.ID + "=?", whereClause);
+                Log.d(TAG, "##Item views  is Updated Successfully");
+
+
+                contentValues.clear();
+                flagError = true;
+            }
+        } catch (Exception e) {
+            flagError = false;
+            errorMessage = e.getMessage();
+            Log.e(TAG, "##Error while update view " + e.toString());
+        } finally {
+            if (sqLiteDatabase != null && sqLiteDatabase.isOpen())
+                sqLiteDatabase.close();
+            if (!flagError)
+                Log.e(TAG, "##uodate view Item" + errorMessage);
+        }
+
+        return flagError;
+
+
+    }
 }

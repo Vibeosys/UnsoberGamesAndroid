@@ -73,4 +73,8 @@ public class PropertyFileReader {
     public String getItemUrl() {
         return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.GET_ITEMS_URL);
     }
+    public String getViewUld()
+    {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.GET_VIEW_URL);
+    }
 }
