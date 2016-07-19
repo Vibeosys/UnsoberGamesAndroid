@@ -15,10 +15,11 @@
         android:padding="12dp">
 
         <ImageView
+            android:id="@+id/imgGames"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="1dp"
-            android:src="@drawable/ic_public_black_24dp" />
+            android:src="@drawable/games_button_black" />
 
         <TextView
             android:id="@+id/txtGame"
@@ -41,10 +42,11 @@
         android:padding="12dp">
 
         <ImageView
+            android:id="@+id/imgCocktails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="1dp"
-            android:src="@drawable/ic_reorder_black_24dp" />
+            android:src="@drawable/cocktails_button_black" />
 
         <TextView
             android:id="@+id/txtCocktails"
@@ -67,10 +69,11 @@
         android:padding="12dp">
 
         <ImageView
+            android:id="@+id/imgCures"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="1dp"
-            android:src="@drawable/ic_favorite_black_24dp" />
+            android:src="@drawable/cures_button_black" />
 
         <TextView
             android:id="@+id/txtCures"
@@ -93,10 +96,11 @@
         android:padding="12dp">
 
         <ImageView
+            android:id="@+id/imgSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="1dp"
-            android:src="@drawable/ic_search_black_24dp" />
+            android:src="@drawable/search_button_black" />
 
         <TextView
             android:id="@+id/txtSearch"

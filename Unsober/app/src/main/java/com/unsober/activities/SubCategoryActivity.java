@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,9 +27,11 @@ public class SubCategoryActivity extends BaseActivity implements View.OnClickLis
     private static final String TAG = SubCategoryActivity.class.getSimpleName();
     private LinearLayout mGameLay, mCocktailsLay, mCuresLay, mSearchLay, mParentLay;
     private TextView mTxtGames, mTxtCocktails, mTxtCures, mTxtSearch;
+    private ImageView mGameImageView,mCocktailsImageView,mCuresImageView,mSearchImageView;
     private int selectedId = 0;
     public static SearchClickListener searchClickListener;
     public static BackPressListener backPress;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,11 @@ public class SubCategoryActivity extends BaseActivity implements View.OnClickLis
         mTxtCocktails = (TextView) findViewById(R.id.txtCocktails);
         mTxtCures = (TextView) findViewById(R.id.txtCures);
         mTxtSearch = (TextView) findViewById(R.id.txtSearch);
+        mGameImageView = (ImageView) findViewById(R.id.imgGames);
+        mCocktailsImageView = (ImageView)findViewById(R.id.imgCocktails);
+        mCuresImageView = (ImageView) findViewById(R.id.imgCures);
+        mSearchImageView = (ImageView) findViewById(R.id.imgSearch);
+
         setUpFragment(selectedId);
         mGameLay.setOnClickListener(this);
         mCocktailsLay.setOnClickListener(this);
@@ -84,6 +92,10 @@ public class SubCategoryActivity extends BaseActivity implements View.OnClickLis
                 mTxtCocktails.setTextColor(getResources().getColor(R.color.secondaryText));
                 mTxtCures.setTextColor(getResources().getColor(R.color.secondaryText));
                 mTxtSearch.setTextColor(getResources().getColor(R.color.secondaryText));
+                mGameImageView.setImageDrawable(getResources().getDrawable(R.drawable.games_button_orange));
+                mCocktailsImageView.setImageDrawable(getResources().getDrawable(R.drawable.cocktails_button_black));
+                mCuresImageView.setImageDrawable(getResources().getDrawable(R.drawable.cures_button_black));
+                mSearchImageView.setImageDrawable(getResources().getDrawable(R.drawable.search_button_black));
                 break;
             case R.id.cocktailLay:
                 CocktailsFragment cocktailsFragment = new CocktailsFragment();
@@ -93,6 +105,10 @@ public class SubCategoryActivity extends BaseActivity implements View.OnClickLis
                 mTxtCocktails.setTextColor(getResources().getColor(R.color.accentText));
                 mTxtCures.setTextColor(getResources().getColor(R.color.secondaryText));
                 mTxtSearch.setTextColor(getResources().getColor(R.color.secondaryText));
+                mGameImageView.setImageDrawable(getResources().getDrawable(R.drawable.games_button_black));
+                mCocktailsImageView.setImageDrawable(getResources().getDrawable(R.drawable.cocktails_button_orange));
+                mCuresImageView.setImageDrawable(getResources().getDrawable(R.drawable.cures_button_black));
+                mSearchImageView.setImageDrawable(getResources().getDrawable(R.drawable.search_button_black));
                 break;
             case R.id.curesLay:
                 CuresFragment curesFragment = new CuresFragment();
@@ -102,6 +118,10 @@ public class SubCategoryActivity extends BaseActivity implements View.OnClickLis
                 mTxtCocktails.setTextColor(getResources().getColor(R.color.secondaryText));
                 mTxtCures.setTextColor(getResources().getColor(R.color.accentText));
                 mTxtSearch.setTextColor(getResources().getColor(R.color.secondaryText));
+                mGameImageView.setImageDrawable(getResources().getDrawable(R.drawable.games_button_black));
+                mCocktailsImageView.setImageDrawable(getResources().getDrawable(R.drawable.cocktails_button_black));
+                mCuresImageView.setImageDrawable(getResources().getDrawable(R.drawable.cures_button_orange));
+                mSearchImageView.setImageDrawable(getResources().getDrawable(R.drawable.search_button_black));
                 break;
             case R.id.searchLay:
                 SearchFragment searchFragment = new SearchFragment();
@@ -111,6 +131,10 @@ public class SubCategoryActivity extends BaseActivity implements View.OnClickLis
                 mTxtCocktails.setTextColor(getResources().getColor(R.color.secondaryText));
                 mTxtCures.setTextColor(getResources().getColor(R.color.secondaryText));
                 mTxtSearch.setTextColor(getResources().getColor(R.color.accentText));
+                mGameImageView.setImageDrawable(getResources().getDrawable(R.drawable.games_button_black));
+                mCocktailsImageView.setImageDrawable(getResources().getDrawable(R.drawable.cocktails_button_black));
+                mCuresImageView.setImageDrawable(getResources().getDrawable(R.drawable.cures_button_black));
+                mSearchImageView.setImageDrawable(getResources().getDrawable(R.drawable.search_button_orange));
                 break;
             default:
                 GamesFragment gamesFragmentDefault = new GamesFragment();
@@ -120,6 +144,10 @@ public class SubCategoryActivity extends BaseActivity implements View.OnClickLis
                 mTxtCocktails.setTextColor(getResources().getColor(R.color.secondaryText));
                 mTxtCures.setTextColor(getResources().getColor(R.color.secondaryText));
                 mTxtSearch.setTextColor(getResources().getColor(R.color.secondaryText));
+                mGameImageView.setImageDrawable(getResources().getDrawable(R.drawable.games_button_orange));
+                mCocktailsImageView.setImageDrawable(getResources().getDrawable(R.drawable.cocktails_button_black));
+                mCuresImageView.setImageDrawable(getResources().getDrawable(R.drawable.cures_button_black));
+                mSearchImageView.setImageDrawable(getResources().getDrawable(R.drawable.search_button_black));
                 break;
         }
     }
