@@ -74,12 +74,12 @@
                 android:layout_height="80dp"
                 android:src="@drawable/cures_tab_icon" />
 
-            <TextView
+            <!--<TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="HANG OVER"
                 android:textColor="@android:color/black"
-                android:textSize="23sp" />
+                android:textSize="23sp" />-->
 
             <TextView
                 android:layout_width="wrap_content"

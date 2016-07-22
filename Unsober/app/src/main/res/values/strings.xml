@@ -37,7 +37,9 @@
     <string name="str_cocktails">Cocktails</string>
     <string name="str_cures">Cures</string>
     <!-- Ad mob id-->
-    <string name="banner_home_footer">ca-app-pub-1303442515313304/5915766474</string>
+    <!--<string name="banner_home_footer">ca-app-pub-1303442515313304/5915766474</string>-->
+    <string name="banner_home_footer">ca-app-pub-4536209115110186/3605930150</string>
+    <string name="interstitial_ad_id">ca-app-pub-4536209115110186/5082663350</string>
     <string name="str_title_cocktails">Browse Cocktails</string>
     <string name="game_details_views">4 Views </string>
     <string name="str_sport_games">Sport Games</string>
