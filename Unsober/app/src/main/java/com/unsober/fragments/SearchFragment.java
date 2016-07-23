@@ -46,8 +46,7 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
         //return super.onCreateView(inflater, container, savedInstanceState);
         mInterstitialAd = new InterstitialAd(getActivity().getApplicationContext());
         mInterstitialAd.setAdUnitId(getString(R.string.interstitial_ad_id));
-        mInterstitialAd = new InterstitialAd(getActivity().getApplicationContext());
-        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_ad_id));
+
 
         mAdRequest = new AdRequest.Builder()
                 .addTestDevice("0C1256C41F20A2DA8E3751E2E9B38809")
@@ -69,20 +68,11 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
         mSearchText = (EditText) view.findViewById(R.id.firstEditText);
         getActivity().setTitle("Advanced Search");
         btnSearch.setOnClickListener(this);
-       
+
 
         ArrayList<String> getTag1 = mDbRepository.getFirstTag(SqlContract.SqlItems.TAG1);
         ArrayList<String> getTag2 = mDbRepository.getFirstTag(SqlContract.SqlItems.TAG2);
         ArrayList<String> getTag3 = mDbRepository.getFirstTag(SqlContract.SqlItems.TAG3);
-
-
-        List<String> categories = new ArrayList<String>();
-        categories.add("Football");
-        categories.add("Table tennis ");
-        categories.add("chess");
-        categories.add("Boxing");
-        categories.add("Snooker");
-
 
         mSearchSpinnerAdapter1 = new SearchSpinnerAdapter(getActivity().getApplication(), getTag1);
         mSearchSpinnerAdapter2 = new SearchSpinnerAdapter(getActivity().getApplication(), getTag2);

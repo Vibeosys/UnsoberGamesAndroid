@@ -48,4 +48,6 @@
     <string name="str_search_result">Search Result</string>
     <string name="content_error">No Result Found</string>
     <string name="str_no_item_found">No categories available in</string>
+    <string name="purchase_btn">Purchase</string>
+    <string name="cancel_btn">Cancel</string>
 </resources>

@@ -35,8 +35,8 @@
             android:name=".activities.SubCategoryActivity"
             android:parentActivityName=".activities.MainCategoryActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"></activity>
-        <!--Include the AdActivity configChanges and theme. -->
+            android:windowSoftInputMode="adjustPan" />
+        <!-- Include the AdActivity configChanges and theme. -->
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
@@ -48,6 +48,8 @@
         <service
             android:name=".services.ItemSynService"
             android:exported="false" />
+
+        <activity android:name=".activities.AppPurchaseActivity"></activity>
     </application>
 
 </manifest>
