@@ -50,4 +50,5 @@
     <string name="str_no_item_found">No categories available in</string>
     <string name="purchase_btn">Purchase</string>
     <string name="cancel_btn">Cancel</string>
+    <string name="upgrade_app">Upgrade</string>
 </resources>
