@@ -15,6 +15,9 @@ import android.widget.Spinner;
 
 import java.util.List;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.unsober.R;
 import com.unsober.adapter.SearchSpinnerAdapter;
 import com.unsober.data.responsedata.ResponseCategoryDTO;
@@ -34,13 +37,30 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
     private Button btnSearch;
     private String KeyBundle = "BundleKey";
     private String mTag1, mTag2, mTag3;
-
+    InterstitialAd mInterstitialAd;
+    AdRequest mAdRequest;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //return super.onCreateView(inflater, container, savedInstanceState);
+        mInterstitialAd = new InterstitialAd(getActivity().getApplicationContext());
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_ad_id));
+        mInterstitialAd = new InterstitialAd(getActivity().getApplicationContext());
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_ad_id));
 
+        mAdRequest = new AdRequest.Builder()
+                .addTestDevice("0C1256C41F20A2DA8E3751E2E9B38809")
+                .addTestDevice("DC7854A3ADFE5403F956AFB5B83C7391")
+                .addTestDevice("61626A327E33DC376127B6762DAFAE0C")
+                .build();
+        // Load ads into Interstitial Ads
+        mInterstitialAd.loadAd(mAdRequest);
+        mInterstitialAd.setAdListener(new AdListener() {
+            public void onAdLoaded() {
+                showInterstitial();
+            }
+        });
         View view = inflater.inflate(R.layout.fragment_search_advance, container, false);
         spinner1 = (Spinner) view.findViewById(R.id.spinner1);
         spinner2 = (Spinner) view.findViewById(R.id.spinner2);
@@ -49,26 +69,7 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
         mSearchText = (EditText) view.findViewById(R.id.firstEditText);
         getActivity().setTitle("Advanced Search");
         btnSearch.setOnClickListener(this);
-       /* ResponseItemDTO obj1 = new ResponseItemDTO(30,"Test Title","Test Description","test.png","","4","wine","rum","shot",12,1,"12 12 12",10);
-        ResponseItemDTO obj2 = new ResponseItemDTO(31,"Test Title","Test Description","test.png","","4","wine","rum","shot",12,1,"12 12 12",10);
-        ResponseItemDTO obj3 = new ResponseItemDTO(32,"Test Title","Test Description","test.png","","4","WINE","rum","shot",12,1,"12 12 12",10);
-        ResponseItemDTO obj4 = new ResponseItemDTO(33,"Test Title","Test Description","test.png","","4","Wine","rum","shot",12,1,"12 12 12",10);
-        ResponseItemDTO obj5 = new ResponseItemDTO(34,"Test Title","Test Description","test.png","","4","takila","rum","shot",12,1,"12 12 12",10);
-        ResponseItemDTO obj6 = new ResponseItemDTO(35,"Test Title","Test Description","test.png","","4","jin","rum","shot",12,1,"12 12 12",10);
-        ResponseItemDTO obj7 = new ResponseItemDTO(36,"Test Title","Test Description","test.png","","4","wine","rum","shot",12,1,"12 12 12",10);
-        ResponseItemDTO obj8 = new ResponseItemDTO(37,"Search","Test Description","test.png","","4","milk","butter","Paneer",12,1,"12 12 12",10);
-        ResponseItemDTO obj9 = new ResponseItemDTO(38,"gggg","Test Description","test.png","","4","sprite","coca","pepsie",12,1,"12 12 12",10);
-        List<ResponseItemDTO> responseItemDTOs = new ArrayList<>();
-        responseItemDTOs.add(obj1);
-        responseItemDTOs.add(obj2);
-        responseItemDTOs.add(obj3);
-        responseItemDTOs.add(obj4);
-        responseItemDTOs.add(obj5);
-        responseItemDTOs.add(obj6);
-        responseItemDTOs.add(obj7);
-        responseItemDTOs.add(obj8);
-        responseItemDTOs.add(obj9);
-        mDbRepository.insertItems(responseItemDTOs); // Search Test Data*/
+       
 
         ArrayList<String> getTag1 = mDbRepository.getFirstTag(SqlContract.SqlItems.TAG1);
         ArrayList<String> getTag2 = mDbRepository.getFirstTag(SqlContract.SqlItems.TAG2);
@@ -154,5 +155,17 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
                 /*ItemsListFragment itemsListFragment = new ItemsListFragment();*/
         getFragmentManager().beginTransaction().replace(R.id.fragment_frame_lay, advancedSearchFragment).commit();
         BaseFragment.stackFragment.push(this);
+    }
+    private void showInterstitial() {
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+
+
+        } else if (mInterstitialAd.isLoading()) {
+            mInterstitialAd.show();
+
+        }
+
+
     }
 }

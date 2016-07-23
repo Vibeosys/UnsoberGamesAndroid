@@ -35,8 +35,7 @@ public class SubCategoryActivity extends BaseActivity implements View.OnClickLis
     private int selectedId = 0;
     public static SearchClickListener searchClickListener;
     public static BackPressListener backPress;
-    InterstitialAd mInterstitialAd;
-    AdRequest mAdRequest;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +47,7 @@ public class SubCategoryActivity extends BaseActivity implements View.OnClickLis
 
         } catch (Exception e) {
         }
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_ad_id));
+
         mParentLay = (LinearLayout) findViewById(R.id.parentLay);
         mGameLay = (LinearLayout) findViewById(R.id.gameLay);
         mCocktailsLay = (LinearLayout) findViewById(R.id.cocktailLay);
@@ -70,16 +68,7 @@ public class SubCategoryActivity extends BaseActivity implements View.OnClickLis
         mCuresLay.setOnClickListener(this);
         mSearchLay.setOnClickListener(this);
 
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_ad_id));
 
-        mAdRequest = new AdRequest.Builder()
-                /*.addTestDevice("0C1256C41F20A2DA8E3751E2E9B38809")
-                .addTestDevice("DC7854A3ADFE5403F956AFB5B83C7391")
-                .addTestDevice("61626A327E33DC376127B6762DAFAE0C")*/
-                .build();
-        // Load ads into Interstitial Ads
-        mInterstitialAd.loadAd(mAdRequest);
     }
 
     @Override
@@ -140,33 +129,18 @@ public class SubCategoryActivity extends BaseActivity implements View.OnClickLis
                 mSearchImageView.setImageDrawable(getResources().getDrawable(R.drawable.search_button_black));
                 break;
             case R.id.searchLay:
-                if (!NetworkUtils.isActiveNetworkAvailable(getApplicationContext())) {
-                    callToAdvancedSearchFrag();
-                }
-                else if(NetworkUtils.isActiveNetworkAvailable(getApplicationContext()))
-                {
-                    mInterstitialAd.setAdListener(new AdListener() {
-                        public void onAdLoaded() {
-                            showInterstitial();
-                        }
-                    });
-                   /* if(mInterstitialAd.isLoading())
-                    {
-                        if(mInterstitialAd.isLoaded())
-                        {
-                            mInterstitialAd.show();
-                            callToAdvancedSearchFrag();
-                        }
-                        callToAdvancedSearchFrag();
-                    }*/
-                }
 
-                    /*mInterstitialAd.setAdListener(new AdListener() {
-                        public void onAdLoaded() {
-                            showInterstitial();
-                        }
-                    });*/
-
+                SearchFragment searchFragment = new SearchFragment();
+                BaseFragment.stackFragment.clear();
+                getFragmentManager().beginTransaction().replace(R.id.fragment_frame_lay, searchFragment).commit();
+                mTxtGames.setTextColor(getResources().getColor(R.color.secondaryText));
+                mTxtCocktails.setTextColor(getResources().getColor(R.color.secondaryText));
+                mTxtCures.setTextColor(getResources().getColor(R.color.secondaryText));
+                mTxtSearch.setTextColor(getResources().getColor(R.color.accentText));
+                mGameImageView.setImageDrawable(getResources().getDrawable(R.drawable.games_button_black));
+                mCocktailsImageView.setImageDrawable(getResources().getDrawable(R.drawable.cocktails_button_black));
+                mCuresImageView.setImageDrawable(getResources().getDrawable(R.drawable.cures_button_black));
+                mSearchImageView.setImageDrawable(getResources().getDrawable(R.drawable.search_button_orange));
 
                 break;
             default:
@@ -276,32 +250,8 @@ public class SubCategoryActivity extends BaseActivity implements View.OnClickLis
         BaseFragment.stackFragment.clear();
     }
 
-    private void showInterstitial() {
-        if (mInterstitialAd.isLoaded()) {
-            mInterstitialAd.show();
-            callToAdvancedSearchFrag();
-
-        } else if (mInterstitialAd.isLoading()) {
-            mInterstitialAd.show();
-            callToAdvancedSearchFrag();
-
-        }
 
 
-    }
 
-    private void callToAdvancedSearchFrag() {
-        SearchFragment searchFragment = new SearchFragment();
-        BaseFragment.stackFragment.clear();
-        getFragmentManager().beginTransaction().replace(R.id.fragment_frame_lay, searchFragment).commit();
-        mTxtGames.setTextColor(getResources().getColor(R.color.secondaryText));
-        mTxtCocktails.setTextColor(getResources().getColor(R.color.secondaryText));
-        mTxtCures.setTextColor(getResources().getColor(R.color.secondaryText));
-        mTxtSearch.setTextColor(getResources().getColor(R.color.accentText));
-        mGameImageView.setImageDrawable(getResources().getDrawable(R.drawable.games_button_black));
-        mCocktailsImageView.setImageDrawable(getResources().getDrawable(R.drawable.cocktails_button_black));
-        mCuresImageView.setImageDrawable(getResources().getDrawable(R.drawable.cures_button_black));
-        mSearchImageView.setImageDrawable(getResources().getDrawable(R.drawable.search_button_orange));
-    }
 
 }
