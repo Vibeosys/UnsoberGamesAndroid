@@ -55,7 +55,7 @@ public class SessionManager {
         editor.putInt(PropertyTypeConstants.DATABASE_VERSION_NUMBER, mPropertyFileReader.getDbVersion());
         editor.putString(PropertyTypeConstants.GET_CATEGORY_URL, mPropertyFileReader.getCategoryUrl());
         editor.putString(PropertyTypeConstants.GET_ITEMS_URL, mPropertyFileReader.getItemUrl());
-        editor.putString(PropertyTypeConstants.GET_VIEW_URL,mPropertyFileReader.getViewUld());
+        editor.putString(PropertyTypeConstants.GET_VIEW_URL, mPropertyFileReader.getViewUld());
         editor.apply();
         return true;
     }
@@ -96,5 +96,13 @@ public class SessionManager {
 
     public String getViewUrl() {
         return mProjectSharedPref.getString(PropertyTypeConstants.GET_VIEW_URL, null);
+    }
+
+    public void setIsPurchased(int isPurchaed) {
+        setValuesInSharedPrefs(PropertyTypeConstants.IS_PURCHASED, isPurchaed);
+    }
+
+    public int getIsPurchased() {
+        return mProjectSharedPref.getInt(PropertyTypeConstants.IS_PURCHASED, -1);
     }
 }

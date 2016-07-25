@@ -82,12 +82,18 @@ public class GameDetailsFragment extends BaseFragment implements YouTubePlayer.O
         YouTubePlayerFragment youTubePlayerFragment = YouTubePlayerFragment.newInstance();
         youTubePlayerFragment.initialize(AppConstants.YOUTUBE_AUTH_KEY, this);
 
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice("0C1256C41F20A2DA8E3751E2E9B38809")
+        if (mSessionManager.getIsPurchased() == AppConstants.ITEM_PURCHASED) {
+            mAdView.setVisibility(View.GONE);
+        } else {
+            mAdView.setVisibility(View.VISIBLE);
+            AdRequest adRequest = new AdRequest.Builder()
+               /* .addTestDevice("0C1256C41F20A2DA8E3751E2E9B38809")
                 .addTestDevice("DC7854A3ADFE5403F956AFB5B83C7391")
-                .addTestDevice("61626A327E33DC376127B6762DAFAE0C")
-                .build();
-        mAdView.loadAd(adRequest);
+                .addTestDevice("61626A327E33DC376127B6762DAFAE0C")*/
+                    .build();
+            mAdView.loadAd(adRequest);
+        }
+
         mTxtTitle.setText(mItemDataDTO.getItemTitle());
         mTxtDescription.setText(Html.fromHtml(mItemDataDTO.getItemDescription()));
         mTxtPlayers.setText("Minimum of " + mItemDataDTO.getNoOfPlayers() + " Players");

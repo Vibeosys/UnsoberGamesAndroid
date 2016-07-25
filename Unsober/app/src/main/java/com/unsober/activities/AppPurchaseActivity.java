@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.android.vending.billing.IInAppBillingService;
 import com.unsober.R;
+import com.unsober.utils.AppConstants;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,7 +25,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class AppPurchaseActivity extends AppCompatActivity implements View.OnClickListener {
+public class AppPurchaseActivity extends BaseActivity implements View.OnClickListener {
 
     private Button mBtnPurchase, mBtnCancel;
     private String mAppId = "AIzaSyAaO28Iu2WSBHOxiLtCQcfJ5tyHRZ_BFAA";
@@ -61,6 +62,11 @@ public class AppPurchaseActivity extends AppCompatActivity implements View.OnCli
     }
 
     @Override
+    protected View getMainView() throws NullPointerException {
+        return null;
+    }
+
+    @Override
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
@@ -71,8 +77,10 @@ public class AppPurchaseActivity extends AppCompatActivity implements View.OnCli
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
-                if (isBillingSupported != 0)
-                    Toast.makeText(getApplicationContext(), "The Billing is not supported", Toast.LENGTH_SHORT).show();
+                if (isBillingSupported != 0) {
+
+                }
+                //Toast.makeText(getApplicationContext(), "The Billing is not supported", Toast.LENGTH_SHORT).show();
                 else
                     getPurchases();
                 break;
@@ -188,6 +196,7 @@ public class AppPurchaseActivity extends AppCompatActivity implements View.OnCli
                     if (sku.equals("com.unsober.proversion") && payload.equals(mTransactionId.toString()))
                         Toast.makeText(getApplicationContext(), "You have bought the " + sku +
                                 ". Thank you!", Toast.LENGTH_LONG).show();
+                    mSessionManager.setIsPurchased(AppConstants.ITEM_PURCHASED);
                 } catch (JSONException e) {
                     Toast.makeText(getApplicationContext(), "Failed to parse purchase data.", Toast.LENGTH_LONG).show();
                     e.printStackTrace();

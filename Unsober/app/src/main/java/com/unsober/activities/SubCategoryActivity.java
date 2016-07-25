@@ -25,6 +25,7 @@ import com.unsober.fragments.CuresFragment;
 import com.unsober.fragments.GamesFragment;
 import com.unsober.fragments.SearchFragment;
 import com.google.android.gms.ads.InterstitialAd;
+import com.unsober.utils.AppConstants;
 import com.unsober.utils.NetworkUtils;
 
 public class SubCategoryActivity extends BaseActivity implements View.OnClickListener {
@@ -181,10 +182,9 @@ public class SubCategoryActivity extends BaseActivity implements View.OnClickLis
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         //Put the code to detect the user is subscriber or not
-        int i = 1;
-        if (i == 1) {
+        int isPurchased = mSessionManager.getIsPurchased();
+        if (isPurchased == AppConstants.ITEM_NOT_PURCHASED) {
             inflater.inflate(R.menu.app_purchase_opt, menu);
-
             return true;
         } else {
             inflater.inflate(R.menu.game_details_search, menu);

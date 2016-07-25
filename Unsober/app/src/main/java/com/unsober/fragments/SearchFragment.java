@@ -23,6 +23,7 @@ import com.unsober.adapter.SearchSpinnerAdapter;
 import com.unsober.data.responsedata.ResponseCategoryDTO;
 import com.unsober.data.responsedata.ResponseItemDTO;
 import com.unsober.database.SqlContract;
+import com.unsober.utils.AppConstants;
 
 import java.util.ArrayList;
 
@@ -44,22 +45,25 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //return super.onCreateView(inflater, container, savedInstanceState);
-        mInterstitialAd = new InterstitialAd(getActivity().getApplicationContext());
-        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_ad_id));
 
+        if (mSessionManager.getIsPurchased() == AppConstants.ITEM_PURCHASED) {
 
-        mAdRequest = new AdRequest.Builder()
-                .addTestDevice("0C1256C41F20A2DA8E3751E2E9B38809")
+        } else {
+            mInterstitialAd = new InterstitialAd(getActivity().getApplicationContext());
+            mInterstitialAd.setAdUnitId(getString(R.string.interstitial_ad_id));
+            mAdRequest = new AdRequest.Builder()
+               /* .addTestDevice("0C1256C41F20A2DA8E3751E2E9B38809")
                 .addTestDevice("DC7854A3ADFE5403F956AFB5B83C7391")
-                .addTestDevice("61626A327E33DC376127B6762DAFAE0C")
-                .build();
-        // Load ads into Interstitial Ads
-        mInterstitialAd.loadAd(mAdRequest);
-        mInterstitialAd.setAdListener(new AdListener() {
-            public void onAdLoaded() {
-                showInterstitial();
-            }
-        });
+                .addTestDevice("61626A327E33DC376127B6762DAFAE0C")*/
+                    .build();
+            // Load ads into Interstitial Ads
+            mInterstitialAd.loadAd(mAdRequest);
+            mInterstitialAd.setAdListener(new AdListener() {
+                public void onAdLoaded() {
+                    showInterstitial();
+                }
+            });
+        }
         View view = inflater.inflate(R.layout.fragment_search_advance, container, false);
         spinner1 = (Spinner) view.findViewById(R.id.spinner1);
         spinner2 = (Spinner) view.findViewById(R.id.spinner2);
@@ -146,6 +150,7 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
         getFragmentManager().beginTransaction().replace(R.id.fragment_frame_lay, advancedSearchFragment).commit();
         BaseFragment.stackFragment.push(this);
     }
+
     private void showInterstitial() {
         if (mInterstitialAd.isLoaded()) {
             mInterstitialAd.show();

@@ -1,18 +1,29 @@
 package com.unsober.activities;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Handler;
+import android.os.IBinder;
+import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
+import com.android.vending.billing.IInAppBillingService;
 import com.unsober.MainActivity;
 import com.unsober.R;
+import com.unsober.utils.AppConstants;
+
+import java.util.ArrayList;
 
 public class SplashActivity extends BaseActivity {
     private static int SPLASH_TIME_OUT = 3000;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +35,7 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         getSupportActionBar().hide();
+
         new Handler().postDelayed(new Runnable() {
 
             /*
@@ -44,8 +56,12 @@ public class SplashActivity extends BaseActivity {
         }, SPLASH_TIME_OUT);
     }
 
+
+
     @Override
     protected View getMainView() throws NullPointerException {
         return null;
     }
+
+
 }

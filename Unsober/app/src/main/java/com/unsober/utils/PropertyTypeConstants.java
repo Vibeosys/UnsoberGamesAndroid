@@ -16,4 +16,5 @@ public class PropertyTypeConstants {
 
 
     public static final String IS_TERMS_ACCEPTED = "user.isAccepted";
+    public static final String IS_PURCHASED = "user.isPurchased";
 }
