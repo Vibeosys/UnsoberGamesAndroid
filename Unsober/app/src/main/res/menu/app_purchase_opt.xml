@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/app_purchase"
-        android:icon="@drawable/ic_system_update_white_24dp"
         android:title="@string/upgrade_app"
         app:showAsAction="always|withText" />
 </menu>

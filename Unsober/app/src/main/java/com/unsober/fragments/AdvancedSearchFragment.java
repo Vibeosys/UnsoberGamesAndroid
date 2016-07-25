@@ -65,9 +65,9 @@ public class AdvancedSearchFragment extends ItemListBaseFragment {
 
         mAdView = (AdView) view.findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
-                /*.addTestDevice("0C1256C41F20A2DA8E3751E2E9B38809")
+                .addTestDevice("0C1256C41F20A2DA8E3751E2E9B38809")
                 .addTestDevice("DC7854A3ADFE5403F956AFB5B83C7391")
-                .addTestDevice("61626A327E33DC376127B6762DAFAE0C")*/
+                .addTestDevice("61626A327E33DC376127B6762DAFAE0C")
                 .build();
         mAdView.loadAd(adRequest);
 

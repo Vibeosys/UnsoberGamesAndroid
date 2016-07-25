@@ -45,13 +45,13 @@ public class MainCategoryActivity extends BaseActivity implements View.OnClickLi
         return null;
     }
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.game_details_search, menu);
         return true;
 
-    }
+    }*/
 
     @Override
     public void onClick(View v) {
