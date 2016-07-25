@@ -85,6 +85,7 @@ public class AppPurchaseActivity extends BaseActivity implements View.OnClickLis
                     getPurchases();
                 break;
             case R.id.cancelProduct:
+                finish();
                 break;
         }
     }
