@@ -26,7 +26,7 @@
                 android:layout_height="80dp"
                 android:src="@drawable/games_tab_icon" />
 
-            <TextView
+            <com.unsober.views.RobotoTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="GAMES"
@@ -50,7 +50,7 @@
                 android:layout_height="80dp"
                 android:src="@drawable/cocktails_tab_icon" />
 
-            <TextView
+            <com.unsober.views.RobotoTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="COCKTAILS"
@@ -81,7 +81,7 @@
                 android:textColor="@android:color/black"
                 android:textSize="23sp" />-->
 
-            <TextView
+            <com.unsober.views.RobotoTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="CURES"

@@ -30,7 +30,7 @@
             android:orientation="vertical"
             android:padding="3dp">
 
-            <TextView
+            <com.unsober.views.RobotoTextView
                 android:id="@+id/gameTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
                     android:padding="2dp"
                     android:src="@drawable/ic_person_black_18dp" />
 
-                <TextView
+                <com.unsober.views.RobotoTextView
                     android:id="@+id/gameNumberOfPlayers"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

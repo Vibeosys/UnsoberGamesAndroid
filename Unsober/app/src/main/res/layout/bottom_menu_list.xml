@@ -21,7 +21,7 @@
             android:padding="1dp"
             android:src="@drawable/games_button_black" />
 
-        <TextView
+        <com.unsober.views.RobotoTextView
             android:id="@+id/txtGame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
             android:padding="1dp"
             android:src="@drawable/cocktails_button_black" />
 
-        <TextView
+        <com.unsober.views.RobotoTextView
             android:id="@+id/txtCocktails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
             android:padding="1dp"
             android:src="@drawable/cures_button_black" />
 
-        <TextView
+        <com.unsober.views.RobotoTextView
             android:id="@+id/txtCures"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -102,7 +102,7 @@
             android:padding="1dp"
             android:src="@drawable/search_button_black" />
 
-        <TextView
+        <com.unsober.views.RobotoTextView
             android:id="@+id/txtSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -41,7 +41,7 @@
         android:layout_margin="4dp"
         android:orientation="vertical">
 
-        <TextView
+        <com.unsober.views.RobotoTextView
             android:id="@+id/productDesc"
             android:textSize="16dp"
             android:layout_width="wrap_content"

@@ -5,7 +5,7 @@
     android:background="@android:color/white"
     android:orientation="vertical">
 
-    <TextView
+    <com.unsober.views.RobotoTextView
         android:id="@+id/txtSearchError"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
