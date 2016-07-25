@@ -1,5 +1,6 @@
 package com.unsober.activities;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
@@ -223,6 +224,8 @@ public class SubCategoryActivity extends BaseActivity implements View.OnClickLis
                 if (this.backPress != null)
                     backPress.OnBackPress();
                 break;
+            case R.id.app_purchase:
+                startActivity(new Intent(getApplicationContext(), AppPurchaseActivity.class));
         }
         return true;
 
