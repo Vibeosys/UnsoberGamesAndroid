@@ -50,7 +50,9 @@
             android:name=".services.ItemSynService"
             android:exported="false" />
 
-        <activity android:name=".activities.AppPurchaseActivity"></activity>
+        <activity
+            android:name=".activities.AppPurchaseActivity"
+            android:parentActivityName=".activities.SubCategoryActivity"></activity>
     </application>
 
 </manifest>
