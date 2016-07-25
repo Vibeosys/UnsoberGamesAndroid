@@ -40,15 +40,18 @@
     <!--<string name="banner_home_footer">ca-app-pub-1303442515313304/5915766474</string>-->
     <string name="banner_home_footer">ca-app-pub-4536209115110186/3605930150</string>
     <string name="interstitial_ad_id">ca-app-pub-4536209115110186/5082663350</string>
-    <string name="str_title_cocktails">Browse Cocktails</string>
+    <string name="str_title_cocktails">BROWSE COCKTAILS</string>
     <string name="game_details_views">4 Views </string>
     <string name="str_sport_games">Sport Games</string>
-    <string name="str_cures_title">Browse Cures</string>
-    <string name="str_game_title">Browse Games</string>
-    <string name="str_search_result">Search Result</string>
+    <string name="str_cures_title">BROWSE CURES</string>
+    <string name="str_game_title">BROWSE GAMES</string>
+    <string name="str_search_result">SEARCH RESULT</string>
     <string name="content_error">No Result Found</string>
     <string name="str_no_item_found">No categories available in</string>
     <string name="purchase_btn">Purchase</string>
     <string name="cancel_btn">Cancel</string>
     <string name="upgrade_app">Upgrade</string>
+    <string name="str_advanced_search">ADVANCED SEARCH</string>
+    <string name="main_category_title">UNSOBER</string>
+    <string name="inapp_purchase">PURCHASE</string>
 </resources>

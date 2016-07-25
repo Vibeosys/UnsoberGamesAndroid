@@ -47,6 +47,7 @@ public class ItemsListFragment extends ItemListBaseFragment {
     private TextView mTxtSearchError;
     private ListView mListView;
     private String TAG = ServerSyncManager.class.getSimpleName();
+    private String mTitle;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,7 +68,8 @@ public class ItemsListFragment extends ItemListBaseFragment {
             mGameListDataDTO = mDbRepository.getGameList(mCategoryId);
             mAdapter = new ItemsListAdapter(mGameListDataDTO, getActivity().getApplicationContext());
             mListView.setAdapter(mAdapter);
-            getActivity().setTitle(mDbRepository.getCategoryName(mCategoryId));
+            mTitle = mDbRepository.getCategoryName(mCategoryId);
+            getActivity().setTitle(mTitle.toUpperCase());
         } else {
             Log.e("ItemList", "Cannot get category Id");
         }

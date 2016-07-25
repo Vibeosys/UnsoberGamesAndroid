@@ -9,6 +9,7 @@ import android.content.ServiceConnection;
 import android.os.AsyncTask;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -49,7 +50,8 @@ public class AppPurchaseActivity extends BaseActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_purchase);
-
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(getResources().getString(R.string.inapp_purchase));
         mBtnPurchase = (Button) findViewById(R.id.purchaseProduct);
         mBtnCancel = (Button) findViewById(R.id.cancelProduct);
         mBtnPurchase.setOnClickListener(this);

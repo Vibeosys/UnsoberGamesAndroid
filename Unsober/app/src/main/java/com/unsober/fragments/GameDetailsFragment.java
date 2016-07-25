@@ -45,13 +45,14 @@ public class GameDetailsFragment extends BaseFragment implements YouTubePlayer.O
     private ImageLoader mImageLoader;
     private FrameLayout mFrameLayout;
     private String mYoutubeLink;
+    private String mTitle;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //return super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_details_layout, container, false);
-        getActivity().setTitle("Game Title#1");
+        //getActivity().setTitle("Game Title#1");
 
         mTxtTitle = (TextView) view.findViewById(R.id.txtTitle);
         mTxtDescription = (TextView) view.findViewById(R.id.txtDescription);
@@ -78,7 +79,8 @@ public class GameDetailsFragment extends BaseFragment implements YouTubePlayer.O
 
     private void setUpUI() {
         mItemDataDTO = mDbRepository.getItemDetail(mItemId);
-        getActivity().setTitle(mItemDataDTO.getItemTitle());
+        mTitle = mItemDataDTO.getItemTitle();
+        getActivity().setTitle(mTitle.toUpperCase());
         YouTubePlayerFragment youTubePlayerFragment = YouTubePlayerFragment.newInstance();
         youTubePlayerFragment.initialize(AppConstants.YOUTUBE_AUTH_KEY, this);
 

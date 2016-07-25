@@ -70,7 +70,7 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
         spinner3 = (Spinner) view.findViewById(R.id.spinner3);
         btnSearch = (Button) view.findViewById(R.id.btnSearch);
         mSearchText = (EditText) view.findViewById(R.id.firstEditText);
-        getActivity().setTitle("Advanced Search");
+        getActivity().setTitle(getResources().getString(R.string.str_advanced_search));
         btnSearch.setOnClickListener(this);
 
 
