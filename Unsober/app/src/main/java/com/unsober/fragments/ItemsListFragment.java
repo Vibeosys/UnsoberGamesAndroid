@@ -222,6 +222,11 @@ public class ItemsListFragment extends ItemListBaseFragment {
         long itemId = 0;
 
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
         protected Void doInBackground(Long... params) {
             itemId = params[0];
             mDbRepository.updateViews(itemId);
@@ -240,7 +245,12 @@ public class ItemsListFragment extends ItemListBaseFragment {
         Bundle bundle = new Bundle();
         bundle.putLong("itemId", itemId);
         gameDetailsFragment.setArguments(bundle);
-        getFragmentManager().beginTransaction().replace(R.id.fragment_frame_lay, gameDetailsFragment).commit();
-        BaseFragment.stackFragment.push(this);
+        try {
+            getActivity().getFragmentManager().beginTransaction().replace(R.id.fragment_frame_lay, gameDetailsFragment).commit();
+            BaseFragment.stackFragment.push(this);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
     }
 }
