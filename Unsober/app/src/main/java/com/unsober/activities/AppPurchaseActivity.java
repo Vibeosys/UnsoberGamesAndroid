@@ -191,15 +191,17 @@ public class AppPurchaseActivity extends BaseActivity implements View.OnClickLis
             String purchaseData = data.getStringExtra("INAPP_PURCHASE_DATA");
             String dataSignature = data.getStringExtra("INAPP_DATA_SIGNATURE");
 
-            if (resultCode == 0 && responseCode == 0) {
+            if (resultCode == 0) {
                 try {
                     JSONObject jo = new JSONObject(purchaseData);
                     String sku = jo.getString("productId");
                     String payload = jo.getString("developerPayload");
-                    if (sku.equals("com.unsober.proversion") && payload.equals(mTransactionId.toString()))
-                        Toast.makeText(getApplicationContext(), "You have bought the " + sku +
-                                ". Thank you!", Toast.LENGTH_LONG).show();
-                    mSessionManager.setIsPurchased(AppConstants.ITEM_PURCHASED);
+                    if (sku.equals("com.unsober.proversion")) {
+                        Toast.makeText(getApplicationContext(), "You have purchase the ads free " +
+                                "application. Thank you!", Toast.LENGTH_LONG).show();
+                        mSessionManager.setIsPurchased(AppConstants.ITEM_PURCHASED);
+                    }
+
                 } catch (JSONException e) {
                     Toast.makeText(getApplicationContext(), "Failed to parse purchase data.", Toast.LENGTH_LONG).show();
                     e.printStackTrace();
