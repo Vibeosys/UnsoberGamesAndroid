@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.vending.billing.IInAppBillingService;
@@ -28,7 +29,7 @@ import java.util.UUID;
 
 public class AppPurchaseActivity extends BaseActivity implements View.OnClickListener {
 
-    private Button mBtnPurchase, mBtnCancel;
+    private TextView mBtnPurchase, mBtnCancel;
     private String mAppId = "AIzaSyAaO28Iu2WSBHOxiLtCQcfJ5tyHRZ_BFAA";
     IInAppBillingService mService;
     String mPrice;
@@ -52,8 +53,9 @@ public class AppPurchaseActivity extends BaseActivity implements View.OnClickLis
         setContentView(R.layout.activity_app_purchase);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(getResources().getString(R.string.inapp_purchase));
-        mBtnPurchase = (Button) findViewById(R.id.purchaseProduct);
-        mBtnCancel = (Button) findViewById(R.id.cancelProduct);
+        getSupportActionBar().hide();
+        mBtnPurchase = (TextView) findViewById(R.id.purchaseProduct);
+        mBtnCancel = (TextView) findViewById(R.id.cancelProduct);
         mBtnPurchase.setOnClickListener(this);
         mBtnCancel.setOnClickListener(this);
 
@@ -204,6 +206,8 @@ public class AppPurchaseActivity extends BaseActivity implements View.OnClickLis
 
                 } catch (JSONException e) {
                     Toast.makeText(getApplicationContext(), "Failed to parse purchase data.", Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
+                } catch (NullPointerException e) {
                     e.printStackTrace();
                 }
             }

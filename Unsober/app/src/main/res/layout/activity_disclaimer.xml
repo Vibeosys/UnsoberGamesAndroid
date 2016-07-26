@@ -22,7 +22,7 @@
                 android:layout_height="180dp"
                 android:src="@drawable/ic_splash_icon" />
 
-            <com.unsober.views.RobotoTextView
+            <com.unsober.views.RobotoBoldTextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="28dp"

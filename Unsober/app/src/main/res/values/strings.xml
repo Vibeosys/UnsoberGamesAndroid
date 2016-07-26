@@ -54,4 +54,8 @@
     <string name="str_advanced_search">ADVANCED SEARCH</string>
     <string name="main_category_title">UNSOBER</string>
     <string name="inapp_purchase">PURCHASE</string>
+    <string name="str_remove_ads">REMOVE ADS</string>
+    <string name="str_keep_ads">KEEP ADS</string>
+    <string name="str_purchase_msg">IF YOU ARE TIRED OF SEEING ADS YOU CAN UPGRADE
+        WITH JUST \u20AC0.99 AND YOU WILL NEVER HAVE TO SEE ANOTHER AD AGAIN</string>
 </resources>

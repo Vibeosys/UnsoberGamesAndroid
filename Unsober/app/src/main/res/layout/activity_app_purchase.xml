@@ -3,79 +3,71 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@android:color/white"
     android:gravity="center"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.unsober.activities.AppPurchaseActivity">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:gravity="center|top"
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:layout_margin="4dp"
-                android:gravity="center"
+                android:layout_height="180dp"
                 android:src="@drawable/ic_splash_icon" />
 
+            <com.unsober.views.RobotoBoldTextView
+                android:id="@+id/purchaseProduct"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="28dp"
+                android:layout_marginTop="28dp"
+                android:background="@drawable/disclaimer_back"
+                android:paddingBottom="4dp"
+                android:paddingLeft="32dp"
+                android:paddingRight="32dp"
+                android:paddingTop="4dp"
+                android:text="@string/str_remove_ads"
+                android:textColor="@color/primaryText"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <com.unsober.views.RobotoTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:gravity="center"
+                android:lineSpacingExtra="3sp"
+                android:padding="4dp"
+                android:text="@string/str_purchase_msg"
+                android:textColor="@color/secondaryText"
+                android:textSize="18sp" />
+
+            <com.unsober.views.RobotoTextView
+                android:id="@+id/cancelProduct"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="28dp"
+                android:layout_marginTop="28dp"
+                android:background="@drawable/accept_back"
+                android:paddingBottom="6dp"
+                android:paddingLeft="38dp"
+                android:paddingRight="38dp"
+                android:paddingTop="6dp"
+                android:text="@string/str_keep_ads"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
         </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="4dp"
-        android:orientation="vertical">
-
-        <com.unsober.views.RobotoTextView
-            android:id="@+id/productDesc"
-            android:textSize="16dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/primaryText"
-            android:text="Hey ..would you like to purchase this product" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:orientation="horizontal"
-        android:weightSum="2">
-
-        <Button
-            android:id="@+id/purchaseProduct"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:background="@drawable/accept_back"
-            android:text="@string/purchase_btn"
-            android:textColor="@android:color/white" />
-
-        <Button
-            android:id="@+id/cancelProduct"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:background="@drawable/accept_back"
-            android:text="@string/cancel_btn"
-            android:textColor="@android:color/white" />
-
-    </LinearLayout>
+    </ScrollView>
 </LinearLayout>
