@@ -37,9 +37,10 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
     private Spinner spinner1, spinner2, spinner3;
     private Button btnSearch;
     private String KeyBundle = "BundleKey";
-    private String mTag1, mTag2, mTag3;
+    private String mTag1 = "", mTag2 = "", mTag3 = "";
     InterstitialAd mInterstitialAd;
     AdRequest mAdRequest;
+    private boolean isTagSelected = false;
 
     @Nullable
     @Override
@@ -70,13 +71,37 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
         spinner3 = (Spinner) view.findViewById(R.id.spinner3);
         btnSearch = (Button) view.findViewById(R.id.btnSearch);
         mSearchText = (EditText) view.findViewById(R.id.firstEditText);
+
         getActivity().setTitle(getResources().getString(R.string.str_advanced_search));
         btnSearch.setOnClickListener(this);
 
+      /*  ResponseItemDTO obj1 = new ResponseItemDTO(30, "Test Title game 1", "Test Description wine", "test.png", "", "4", "wine", "rum", "shot", 12, 1, "12 12 12", 10);
+        ResponseItemDTO obj2 = new ResponseItemDTO(31, "Test Title game 2", "Test Description rum", "test.png", "", "4", "wine", "rum", "shot", 12, 1, "12 12 12", 10);
+        ResponseItemDTO obj3 = new ResponseItemDTO(32, "Test Title game 3", "Test Description WINE", "test.png", "", "4", "WINE", "rum", "shot", 12, 1, "12 12 12", 10);
+        ResponseItemDTO obj4 = new ResponseItemDTO(33, "Test Title game 4", "Test Description shot", "test.png", "", "4", "Wine", "rum", "shot", 12, 1, "12 12 12", 10);
+        ResponseItemDTO obj5 = new ResponseItemDTO(34, "Test Title game 5", "Test Description", "test.png", "", "4", "takila", "rum", "shot", 12, 1, "12 12 12", 10);
+        ResponseItemDTO obj6 = new ResponseItemDTO(35, "Test Title game 6", "Test Description jin", "test.png", "", "4", "jin", "rum", "shot", 12, 1, "12 12 12", 10);
+        ResponseItemDTO obj7 = new ResponseItemDTO(36, "Test Title game 7", "Test Description", "test.png", "", "4", "wine", "rum", "shot", 12, 1, "12 12 12", 10);
+        ResponseItemDTO obj8 = new ResponseItemDTO(37, "Milk Test", "Milk Test Description", "test.png", "", "4", "milk", "butter", "Paneer", 12, 1, "12 12 12", 10);
+        ResponseItemDTO obj9 = new ResponseItemDTO(38, "cold drinks games ", "cold drinks games  Description", "test.png", "", "4", "sprite", "coca", "pepsie", 12, 1, "12 12 12", 10);
+        List<ResponseItemDTO> responseItemDTOs = new ArrayList<>();
+        responseItemDTOs.add(obj1);
+        responseItemDTOs.add(obj2);
+        responseItemDTOs.add(obj3);
+        responseItemDTOs.add(obj4);
+        responseItemDTOs.add(obj5);
+        responseItemDTOs.add(obj6);
+        responseItemDTOs.add(obj7);
+        responseItemDTOs.add(obj8);
+        responseItemDTOs.add(obj9);
+        mDbRepository.insertItems(responseItemDTOs); // Search Test Data*/
 
         ArrayList<String> getTag1 = mDbRepository.getFirstTag(SqlContract.SqlItems.TAG1);
+        getTag1.add(0, "#Tag 1");
         ArrayList<String> getTag2 = mDbRepository.getFirstTag(SqlContract.SqlItems.TAG2);
+        getTag2.add(0, "#Tag 2");
         ArrayList<String> getTag3 = mDbRepository.getFirstTag(SqlContract.SqlItems.TAG3);
+        getTag3.add(0, "#Tag 3");
 
         mSearchSpinnerAdapter1 = new SearchSpinnerAdapter(getActivity().getApplication(), getTag1);
         mSearchSpinnerAdapter2 = new SearchSpinnerAdapter(getActivity().getApplication(), getTag2);
@@ -87,8 +112,11 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mTag1 = SqlContract.SqlItems.TAG1 + "='" + (String) mSearchSpinnerAdapter1.getItem(position) + "'";
-
+                if (position != 0) {
+                    String value = (String) mSearchSpinnerAdapter1.getItem(position);
+                    mTag1 = SqlContract.SqlItems.TAG1 + "='" + value + "'";
+                    isTagSelected = true;
+                }
             }
 
             @Override
@@ -99,7 +127,11 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mTag2 = SqlContract.SqlItems.TAG2 + "='" + (String) mSearchSpinnerAdapter2.getItem(position) + "'";
+                if (position != 0) {
+                    String value = (String) mSearchSpinnerAdapter2.getItem(position);
+                    mTag2 = SqlContract.SqlItems.TAG2 + "='" + value + "'";
+                    isTagSelected = true;
+                }
 
             }
 
@@ -111,8 +143,11 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
         spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mTag3 = SqlContract.SqlItems.TAG3 + "='" + (String) mSearchSpinnerAdapter3.getItem(position) + "'";
-
+                if (position != 0) {
+                    String value = (String) mSearchSpinnerAdapter3.getItem(position);
+                    mTag3 = SqlContract.SqlItems.TAG3 + "='" + value + "'";
+                    isTagSelected = true;
+                }
             }
 
             @Override
@@ -129,11 +164,16 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
         switch (id) {
             case R.id.btnSearch:
                 String titleOrDesc = mSearchText.getText().toString();
-                if (!TextUtils.isEmpty(titleOrDesc)) {
-                    mWhereClause = "where " + SqlContract.SqlItems.TITLE + "='" + titleOrDesc + "' OR "
-                            + SqlContract.SqlItems.DESC + "='" + titleOrDesc + "' and " + mTag1 + " OR " + mTag2 + " OR " + mTag3;
-                } else {
-                    mWhereClause = "where " + mTag1 + " OR " + mTag2 + " OR " + mTag3;
+                if (TextUtils.isEmpty(titleOrDesc) && !isTagSelected) {
+                    mWhereClause = "";
+                } else if (!TextUtils.isEmpty(titleOrDesc) && !isTagSelected) {
+                    mWhereClause = "where " + SqlContract.SqlItems.TITLE + " LIKE '%" + titleOrDesc + "%' OR "
+                            + SqlContract.SqlItems.DESC + " LIKE '%" + titleOrDesc + "%'";
+                } else if (!TextUtils.isEmpty(titleOrDesc) && isTagSelected) {
+                    mWhereClause = "where " + SqlContract.SqlItems.TITLE + " LIKE '%" + titleOrDesc + "%' OR "
+                            + SqlContract.SqlItems.DESC + " LIKE '%" + titleOrDesc + "%' and " + createTagClause();
+                } else if (TextUtils.isEmpty(titleOrDesc) && isTagSelected) {
+                    mWhereClause = "where " + createTagClause();
                 }
                 callToNextFragment();
                 break;
@@ -162,5 +202,28 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
         }
 
 
+    }
+
+    private String createTagClause() {
+        String whereTag = "";
+        if (!TextUtils.isEmpty(mTag1)) {
+            whereTag = mTag1;
+        }
+        if (!TextUtils.isEmpty(mTag2)) {
+            if (TextUtils.isEmpty(whereTag)) {
+                whereTag = mTag2;
+            } else {
+                whereTag = whereTag + " OR " + mTag2;
+            }
+        }
+        if (!TextUtils.isEmpty(mTag3)) {
+            if (TextUtils.isEmpty(whereTag)) {
+                whereTag = mTag3;
+            } else {
+                whereTag = whereTag + " OR " + mTag3;
+            }
+
+        }
+        return whereTag;
     }
 }

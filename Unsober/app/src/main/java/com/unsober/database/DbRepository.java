@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.unsober.data.adapterdata.CategoryDataDTO;
@@ -413,7 +414,10 @@ public class DbRepository extends SQLiteOpenHelper {
         try {
             sqLiteDatabase = getReadableDatabase();
             synchronized (sqLiteDatabase) {
-                cursor = sqLiteDatabase.rawQuery(" SELECT * FROM " + SqlContract.SqlItems.TABLE_NAME + " " + whereCondition, null);
+                if (TextUtils.isEmpty(whereCondition))
+                    cursor = sqLiteDatabase.rawQuery(" SELECT * FROM " + SqlContract.SqlItems.TABLE_NAME, null);
+                else
+                    cursor = sqLiteDatabase.rawQuery(" SELECT * FROM " + SqlContract.SqlItems.TABLE_NAME + " " + whereCondition, null);
                 Log.d("TAG", " SELECT * FROM " + SqlContract.SqlItems.TABLE_NAME + whereCondition);
                 gameListDataDTO = new ArrayList<>();
                 if (cursor != null) {

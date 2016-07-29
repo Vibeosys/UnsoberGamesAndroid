@@ -85,6 +85,7 @@ public class AdvancedSearchFragment extends ItemListBaseFragment {
                 callToNext(gameListDataDTO);
             }
         });
+        showNoResult("Result");
         return view;
     }
 
