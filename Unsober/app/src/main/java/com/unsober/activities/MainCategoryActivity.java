@@ -30,8 +30,8 @@ public class MainCategoryActivity extends BaseActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_category);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(getResources().getString(R.string.main_category_title));
+         ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("");
         if (mSessionManager.getIsAccepted() == 0) {
             callToDisclaimer();
             return;
